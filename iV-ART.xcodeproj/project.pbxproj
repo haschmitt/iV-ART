@@ -1,0 +1,302 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2A200658160BE33B007DEA74 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A200657160BE33B007DEA74 /* UIKit.framework */; };
+		2A20065A160BE33B007DEA74 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A200659160BE33B007DEA74 /* Foundation.framework */; };
+		2A20065C160BE33B007DEA74 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A20065B160BE33B007DEA74 /* CoreGraphics.framework */; };
+		2A20065E160BE33B007DEA74 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A20065D160BE33B007DEA74 /* GLKit.framework */; };
+		2A200660160BE33B007DEA74 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A20065F160BE33B007DEA74 /* OpenGLES.framework */; };
+		2A200666160BE33B007DEA74 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2A200664160BE33B007DEA74 /* InfoPlist.strings */; };
+		2A200668160BE33B007DEA74 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A200667160BE33B007DEA74 /* main.m */; };
+		2A20066C160BE33B007DEA74 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A20066B160BE33B007DEA74 /* AppDelegate.m */; };
+		2A20066F160BE33B007DEA74 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A20066D160BE33B007DEA74 /* MainStoryboard.storyboard */; };
+		2A200671160BE33B007DEA74 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 2A200670160BE33B007DEA74 /* Shader.fsh */; };
+		2A200673160BE33B007DEA74 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 2A200672160BE33B007DEA74 /* Shader.vsh */; };
+		2A200676160BE33B007DEA74 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A200675160BE33B007DEA74 /* ViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2A200653160BE33B007DEA74 /* iV-ART.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iV-ART.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A200657160BE33B007DEA74 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		2A200659160BE33B007DEA74 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2A20065B160BE33B007DEA74 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		2A20065D160BE33B007DEA74 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		2A20065F160BE33B007DEA74 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		2A200663160BE33B007DEA74 /* iV-ART-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iV-ART-Info.plist"; sourceTree = "<group>"; };
+		2A200665160BE33B007DEA74 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2A200667160BE33B007DEA74 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2A200669160BE33B007DEA74 /* iV-ART-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iV-ART-Prefix.pch"; sourceTree = "<group>"; };
+		2A20066A160BE33B007DEA74 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		2A20066B160BE33B007DEA74 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		2A20066E160BE33B007DEA74 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		2A200670160BE33B007DEA74 /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
+		2A200672160BE33B007DEA74 /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
+		2A200674160BE33B007DEA74 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		2A200675160BE33B007DEA74 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2A200650160BE33B007DEA74 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A200658160BE33B007DEA74 /* UIKit.framework in Frameworks */,
+				2A20065A160BE33B007DEA74 /* Foundation.framework in Frameworks */,
+				2A20065C160BE33B007DEA74 /* CoreGraphics.framework in Frameworks */,
+				2A20065E160BE33B007DEA74 /* GLKit.framework in Frameworks */,
+				2A200660160BE33B007DEA74 /* OpenGLES.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2A200648160BE33B007DEA74 = {
+			isa = PBXGroup;
+			children = (
+				2A200661160BE33B007DEA74 /* iV-ART */,
+				2A200656160BE33B007DEA74 /* Frameworks */,
+				2A200654160BE33B007DEA74 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2A200654160BE33B007DEA74 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2A200653160BE33B007DEA74 /* iV-ART.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2A200656160BE33B007DEA74 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2A200657160BE33B007DEA74 /* UIKit.framework */,
+				2A200659160BE33B007DEA74 /* Foundation.framework */,
+				2A20065B160BE33B007DEA74 /* CoreGraphics.framework */,
+				2A20065D160BE33B007DEA74 /* GLKit.framework */,
+				2A20065F160BE33B007DEA74 /* OpenGLES.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2A200661160BE33B007DEA74 /* iV-ART */ = {
+			isa = PBXGroup;
+			children = (
+				2A20066A160BE33B007DEA74 /* AppDelegate.h */,
+				2A20066B160BE33B007DEA74 /* AppDelegate.m */,
+				2A20066D160BE33B007DEA74 /* MainStoryboard.storyboard */,
+				2A200670160BE33B007DEA74 /* Shader.fsh */,
+				2A200672160BE33B007DEA74 /* Shader.vsh */,
+				2A200674160BE33B007DEA74 /* ViewController.h */,
+				2A200675160BE33B007DEA74 /* ViewController.m */,
+				2A200662160BE33B007DEA74 /* Supporting Files */,
+			);
+			path = "iV-ART";
+			sourceTree = "<group>";
+		};
+		2A200662160BE33B007DEA74 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2A200663160BE33B007DEA74 /* iV-ART-Info.plist */,
+				2A200664160BE33B007DEA74 /* InfoPlist.strings */,
+				2A200667160BE33B007DEA74 /* main.m */,
+				2A200669160BE33B007DEA74 /* iV-ART-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2A200652160BE33B007DEA74 /* iV-ART */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2A200679160BE33B007DEA74 /* Build configuration list for PBXNativeTarget "iV-ART" */;
+			buildPhases = (
+				2A20064F160BE33B007DEA74 /* Sources */,
+				2A200650160BE33B007DEA74 /* Frameworks */,
+				2A200651160BE33B007DEA74 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "iV-ART";
+			productName = "iV-ART";
+			productReference = 2A200653160BE33B007DEA74 /* iV-ART.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2A20064A160BE33B007DEA74 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = "Heitor Augusto Schmitt";
+			};
+			buildConfigurationList = 2A20064D160BE33B007DEA74 /* Build configuration list for PBXProject "iV-ART" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 2A200648160BE33B007DEA74;
+			productRefGroup = 2A200654160BE33B007DEA74 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2A200652160BE33B007DEA74 /* iV-ART */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2A200651160BE33B007DEA74 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A200666160BE33B007DEA74 /* InfoPlist.strings in Resources */,
+				2A20066F160BE33B007DEA74 /* MainStoryboard.storyboard in Resources */,
+				2A200671160BE33B007DEA74 /* Shader.fsh in Resources */,
+				2A200673160BE33B007DEA74 /* Shader.vsh in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2A20064F160BE33B007DEA74 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A200668160BE33B007DEA74 /* main.m in Sources */,
+				2A20066C160BE33B007DEA74 /* AppDelegate.m in Sources */,
+				2A200676160BE33B007DEA74 /* ViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		2A200664160BE33B007DEA74 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A200665160BE33B007DEA74 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		2A20066D160BE33B007DEA74 /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A20066E160BE33B007DEA74 /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2A200677160BE33B007DEA74 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		2A200678160BE33B007DEA74 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2A20067A160BE33B007DEA74 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iV-ART/iV-ART-Prefix.pch";
+				INFOPLIST_FILE = "iV-ART/iV-ART-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		2A20067B160BE33B007DEA74 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iV-ART/iV-ART-Prefix.pch";
+				INFOPLIST_FILE = "iV-ART/iV-ART-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2A20064D160BE33B007DEA74 /* Build configuration list for PBXProject "iV-ART" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2A200677160BE33B007DEA74 /* Debug */,
+				2A200678160BE33B007DEA74 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2A200679160BE33B007DEA74 /* Build configuration list for PBXNativeTarget "iV-ART" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2A20067A160BE33B007DEA74 /* Debug */,
+				2A20067B160BE33B007DEA74 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2A20064A160BE33B007DEA74 /* Project object */;
+}
