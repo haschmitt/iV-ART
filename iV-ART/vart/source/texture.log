@@ -1,0 +1,10 @@
+Mar 05, 2007 - Leonardo Garcia Fischer
+- Modified some comments for class documentation.
+- Some modifications in "LoadFromFile(const std::string& fileName)" method, to make
+  it more easy to extend to another image reader library.
+Feb 23, 2007 - Leonardo Garcia Fischer
+- Class implementation.
+May 30, 2006 - Bruno de Oliveira Schneider
+- General renaming to account for project rename (VPAT->V-ART).
+Sep 25, 2004 - Bruno de Oliveira Schneider 
+- File created.
