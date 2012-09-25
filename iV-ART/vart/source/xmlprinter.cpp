@@ -2,6 +2,8 @@
 /// \brief Implementation file for V-ART class "XmlPrinter".
 /// \version $Revision$
 
+#ifdef XML
+
 #include "vart/xmlprinter.h"
 #include "vart/scenenode.h"
 #include "vart/dof.h"
@@ -55,3 +57,4 @@ void VART::XmlPrinter::OperateOn(Joint* jointPtr)
     output << indentStr << "</joint>\n";
     output << flush;
 }
+#endif

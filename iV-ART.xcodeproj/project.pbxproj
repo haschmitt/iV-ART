@@ -86,7 +86,6 @@
 		2AEF9D78160DFC7400789B16 /* meshobject.log in Resources */ = {isa = PBXBuildFile; fileRef = 2AEF9CD7160DFC7400789B16 /* meshobject.log */; };
 		2AEF9D79160DFC7400789B16 /* modifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9CD8160DFC7400789B16 /* modifier.cpp */; };
 		2AEF9D7A160DFC7400789B16 /* modifier.log in Resources */ = {isa = PBXBuildFile; fileRef = 2AEF9CD9160DFC7400789B16 /* modifier.log */; };
-		2AEF9D7B160DFC7400789B16 /* naturalinterpolator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9CDA160DFC7400789B16 /* naturalinterpolator.cpp */; };
 		2AEF9D7C160DFC7400789B16 /* naturalinterpolator.log in Resources */ = {isa = PBXBuildFile; fileRef = 2AEF9CDB160DFC7400789B16 /* naturalinterpolator.log */; };
 		2AEF9D7D160DFC7400789B16 /* noisydofmover.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9CDC160DFC7400789B16 /* noisydofmover.cpp */; };
 		2AEF9D7E160DFC7400789B16 /* noisydofmover.log in Resources */ = {isa = PBXBuildFile; fileRef = 2AEF9CDD160DFC7400789B16 /* noisydofmover.log */; };
@@ -162,6 +161,7 @@
 		2AEF9DC4160DFC7400789B16 /* xmlscene.log in Resources */ = {isa = PBXBuildFile; fileRef = 2AEF9D23160DFC7400789B16 /* xmlscene.log */; };
 		2AEF9DC5160DFC7400789B16 /* vartlib-VS2010.lib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AEF9D2F160DFC7400789B16 /* vartlib-VS2010.lib */; };
 		2AEF9DC6160DFC7400789B16 /* vartlib-VS2010_d.lib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AEF9D30160DFC7400789B16 /* vartlib-VS2010_d.lib */; };
+		5EB8F90D1611C2C700132738 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EB8F90C1611C2C700132738 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -398,6 +398,7 @@
 		2AEF9D33160DFC7400789B16 /* xmljointaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xmljointaction.h; sourceTree = "<group>"; };
 		2AEF9D34160DFC7400789B16 /* xmlprinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xmlprinter.h; sourceTree = "<group>"; };
 		2AEF9D35160DFC7400789B16 /* xmlscene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xmlscene.h; sourceTree = "<group>"; };
+		5EB8F90C1611C2C700132738 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -421,6 +422,7 @@
 		2A200648160BE33B007DEA74 = {
 			isa = PBXGroup;
 			children = (
+				5EB8F90C1611C2C700132738 /* Default-568h@2x.png */,
 				2A200661160BE33B007DEA74 /* iV-ART */,
 				2A200656160BE33B007DEA74 /* Frameworks */,
 				2A200654160BE33B007DEA74 /* Products */,
@@ -867,6 +869,7 @@
 				2AEF9DC0160DFC7400789B16 /* xmljointaction.log in Resources */,
 				2AEF9DC2160DFC7400789B16 /* xmlprinter.log in Resources */,
 				2AEF9DC4160DFC7400789B16 /* xmlscene.log in Resources */,
+				5EB8F90D1611C2C700132738 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -913,7 +916,6 @@
 				2AEF9D75160DFC7400789B16 /* mesh.cpp in Sources */,
 				2AEF9D77160DFC7400789B16 /* meshobject.cpp in Sources */,
 				2AEF9D79160DFC7400789B16 /* modifier.cpp in Sources */,
-				2AEF9D7B160DFC7400789B16 /* naturalinterpolator.cpp in Sources */,
 				2AEF9D7D160DFC7400789B16 /* noisydofmover.cpp in Sources */,
 				2AEF9D7F160DFC7400789B16 /* offsetmodifier.cpp in Sources */,
 				2AEF9D81160DFC7400789B16 /* picknamelocator.cpp in Sources */,
@@ -1032,10 +1034,9 @@
 					VISUAL_JOINTS,
 					not__IL_LIB,
 				);
-				HEADER_SEARCH_PATHS = (
-					"\"/Users/schmitt/Xcode Projects/iV-ART/iV-ART\"",
-				);
+				HEADER_SEARCH_PATHS = ../;
 				INFOPLIST_FILE = "iV-ART/iV-ART-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/iV-ART/vart\"",
@@ -1054,10 +1055,9 @@
 					MACOSX,
 					__linux__,
 				);
-				HEADER_SEARCH_PATHS = (
-					"\"/Users/schmitt/Xcode Projects/iV-ART/iV-ART\"",
-				);
+				HEADER_SEARCH_PATHS = ../;
 				INFOPLIST_FILE = "iV-ART/iV-ART-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/iV-ART/vart\"",

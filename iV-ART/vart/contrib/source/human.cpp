@@ -3,8 +3,10 @@
 /// \version $Revision: 1.5 $
 
 #include "vart/contrib/human.h"
-#include "vart/xmlscene.h"
-#include "vart/xmljointaction.h"
+#ifdef XML
+    #include "vart/xmlscene.h"
+    #include "vart/xmljointaction.h"
+#endif
 #include "vart/collector.h"
 #include "vart/action.h"
 #include "vart/meshobject.h"
@@ -31,13 +33,19 @@ void VART::Human::StepManager::Activate()
     {
         // The right foot was moving, make it stick to ground
         humanPtr->StickRightFoot();
+#ifdef XML
         humanPtr->moveLeftLegPtr->Activate();
+        std::cout << "WARNING, #ifdef XML..." << std::endl;
+#endif
     }
     else
     {
         // The left foot was moving, make it stick to ground
         humanPtr->StickLeftFoot();
+#ifdef XML
         humanPtr->moveRightLegPtr->Activate();
+        std::cout << "WARNING, #ifdef XML..." << std::endl;
+#endif
     }
     steppingRight = !steppingRight;
 }
@@ -281,10 +289,13 @@ void VART::Human::ActivateBreatheAction(bool status)
 {
     if (breathePtr) // if breathePtr != NULL
     {
+#ifdef XML
         if (status) // if status == true
             breathePtr->Activate();
         else
             breathePtr->Deactivate();
+        std::cout << "WARNING, #ifdef XML..." << std::endl;
+#endif
     }
 }
 
@@ -292,10 +303,13 @@ void VART::Human::ActivateRestAction(bool status)
 {
     if (restPtr) // if restPtr != NULL
     {
+#ifdef XML
         if (status) // if status == true
             restPtr->Activate();
         else
             restPtr->Deactivate();
+        std::cout << "WARNING, #ifdef XML..." << std::endl;
+#endif
     }
 }
 
@@ -347,7 +361,10 @@ VART::Point4D VART::Human::Position() const
 
 void VART::Human::PutIntoScene(Scene* scenePtr)
 {
+#ifdef XML
     scenePtr->AddObject(this);
+    std::cout << "WARNING, #ifdef XML..." << std::endl;
+#endif
 }
 
 #ifdef XML
@@ -412,6 +429,7 @@ void VART::Human::ComputeTransform(Transform* transPtr)
 
 void VART::Human::Walk(bool status)
 {
+#ifdef XML
     if (status)
     { // start walking
         StickLeftFoot();
@@ -437,6 +455,8 @@ void VART::Human::Walk(bool status)
         restPtr->Activate();
         isWalking = false;
     }
+    std::cout << "WARNING, #ifdef XML..." << std::endl;
+#endif
 }
 
 bool VART::Human::WalkTo(const Point4D& dest, const Point4D& orientation)
@@ -453,6 +473,9 @@ void VART::Human::ModifyActions(DMModifier& modifier)
     list<JointAction*>::iterator iter = actionList.begin();
     for(; iter != actionList.end(); ++iter)
     {
+#ifdef XML
         (*iter)->ModifyDofMovers(modifier);
+        std::cout << "WARNING, #ifdef XML..." << std::endl;
+#endif
     }
 }

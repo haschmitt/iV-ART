@@ -2,6 +2,8 @@
 /// \brief Implementation file for V-ART class "ViewerGlutOGL".
 /// \version $Revision: 1.3 $
 
+#ifdef VART_OGL
+
 #include "vart/contrib/viewerglutogl.h"
 #include <cassert>
 #ifdef VART_OGL
@@ -994,3 +996,5 @@ void VART::ViewerGlutOGL::SetMotionHandler(VART::MouseControl::MotionHandler* ne
 {
     mouseController.SetMotionHandler(newMHPtr);
 }
+
+#endif
