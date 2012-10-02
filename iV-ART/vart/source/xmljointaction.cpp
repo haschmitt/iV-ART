@@ -2,7 +2,7 @@
 /// \brief Implementation file for V-ART class "XmlJointAction".
 /// \version $Revision: 1.1 $
 
-#ifdef XML
+#ifdef VART_XML
 
 #include "vart/xmljointaction.h"
 #include "vart/joint.h"

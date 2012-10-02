@@ -2,7 +2,7 @@
 /// \brief Header file for V-ART class "XmlScene".
 /// \version $Revision: 1.5 $
 
-#ifdef XML
+#ifdef VART_XML
 
 #ifndef VART_XML_H
 #define VART_XML_H

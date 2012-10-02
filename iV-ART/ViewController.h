@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>
+#include "vart/Scene.h"
 
-@interface ViewController : GLKViewController
+@interface ViewController : GLKViewController {
+    VART::Scene scene;
+}
 
 @end

@@ -3,7 +3,7 @@
 /// \version $Revision: 1.5 $
 
 #include "vart/contrib/human.h"
-#ifdef XML
+#ifdef VART_XML
     #include "vart/xmlscene.h"
     #include "vart/xmljointaction.h"
 #endif
@@ -33,18 +33,18 @@ void VART::Human::StepManager::Activate()
     {
         // The right foot was moving, make it stick to ground
         humanPtr->StickRightFoot();
-#ifdef XML
+#ifdef VART_XML
         humanPtr->moveLeftLegPtr->Activate();
-        std::cout << "WARNING, #ifdef XML..." << std::endl;
+        std::cout << "WARNING, #ifdef VART_XML..." << std::endl;
 #endif
     }
     else
     {
         // The left foot was moving, make it stick to ground
         humanPtr->StickLeftFoot();
-#ifdef XML
+#ifdef VART_XML
         humanPtr->moveRightLegPtr->Activate();
-        std::cout << "WARNING, #ifdef XML..." << std::endl;
+        std::cout << "WARNING, #ifdef VART_XML..." << std::endl;
 #endif
     }
     steppingRight = !steppingRight;
@@ -210,7 +210,7 @@ void VART::Human::DrawForPicking() const
     
 }
 
-#ifdef XML
+#ifdef VART_XML
 bool VART::Human::LoadFromFile(const string& fileName)
 {
     XmlScene scene;
@@ -289,12 +289,12 @@ void VART::Human::ActivateBreatheAction(bool status)
 {
     if (breathePtr) // if breathePtr != NULL
     {
-#ifdef XML
+#ifdef VART_XML
         if (status) // if status == true
             breathePtr->Activate();
         else
             breathePtr->Deactivate();
-        std::cout << "WARNING, #ifdef XML..." << std::endl;
+        std::cout << "WARNING, #ifdef VART_XML..." << std::endl;
 #endif
     }
 }
@@ -303,12 +303,12 @@ void VART::Human::ActivateRestAction(bool status)
 {
     if (restPtr) // if restPtr != NULL
     {
-#ifdef XML
+#ifdef VART_XML
         if (status) // if status == true
             restPtr->Activate();
         else
             restPtr->Deactivate();
-        std::cout << "WARNING, #ifdef XML..." << std::endl;
+        std::cout << "WARNING, #ifdef VART_XML..." << std::endl;
 #endif
     }
 }
@@ -361,13 +361,13 @@ VART::Point4D VART::Human::Position() const
 
 void VART::Human::PutIntoScene(Scene* scenePtr)
 {
-#ifdef XML
+#ifdef VART_XML
     scenePtr->AddObject(this);
-    std::cout << "WARNING, #ifdef XML..." << std::endl;
+    std::cout << "WARNING, #ifdef VART_XML..." << std::endl;
 #endif
 }
 
-#ifdef XML
+#ifdef VART_XML
 VART::XmlJointAction* VART::Human::LoadAction(const std::string& fileName)
 {
     assert(hipJointPtr != NULL);
@@ -429,7 +429,7 @@ void VART::Human::ComputeTransform(Transform* transPtr)
 
 void VART::Human::Walk(bool status)
 {
-#ifdef XML
+#ifdef VART_XML
     if (status)
     { // start walking
         StickLeftFoot();
@@ -455,7 +455,7 @@ void VART::Human::Walk(bool status)
         restPtr->Activate();
         isWalking = false;
     }
-    std::cout << "WARNING, #ifdef XML..." << std::endl;
+    std::cout << "WARNING, #ifdef VART_XML..." << std::endl;
 #endif
 }
 
@@ -473,9 +473,9 @@ void VART::Human::ModifyActions(DMModifier& modifier)
     list<JointAction*>::iterator iter = actionList.begin();
     for(; iter != actionList.end(); ++iter)
     {
-#ifdef XML
+#ifdef VART_XML
         (*iter)->ModifyDofMovers(modifier);
-        std::cout << "WARNING, #ifdef XML..." << std::endl;
+        std::cout << "WARNING, #ifdef VART_XML..." << std::endl;
 #endif
     }
 }

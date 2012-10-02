@@ -2,7 +2,7 @@
 /// \brief Implementation file for V-ART class "XmlAction".
 /// \version $Revision: 1.13 $
 
-#ifdef XML
+#ifdef VART_XML
 
 #include "vart/xmlaction.h"
 #include "vart/scene.h"

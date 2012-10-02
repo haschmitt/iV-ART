@@ -26,6 +26,7 @@ namespace VART {
         virtual void ComputeBoundingBox();
         void SetColor(const VART::Color& color) { this->color = color; }
         VART::Point4D GetVertex(unsigned int ind);
+        virtual bool DrawOGL() const;
 
     private:
         /// \brief Vector of all vertices (their coordinates in sequence).
@@ -34,9 +35,7 @@ namespace VART {
         /// a list) because OpenGL will see it as a C array. Every 3 sucessive
         /// coordinates in the array describe a vertex in the object.
         std::vector<double> vertCoordVec;
-
         VART::Color color;
-        virtual bool DrawOGL() const;
     };
 } // end namespace
 #endif  // TRIANGLE_H

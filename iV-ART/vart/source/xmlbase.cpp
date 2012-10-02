@@ -2,7 +2,7 @@
 /// \brief Implementation file for V-ART class "XmlBase".
 /// \version $Revision: 1.4 $
 
-#ifdef XML
+#ifdef VART_XML
 
 #include "vart/xmlbase.h"
 #include <xercesc/util/PlatformUtils.hpp>

@@ -2,7 +2,7 @@
 /// \brief Header file for V-ART class "XmlBase".
 /// \version $Revision: 1.6 $
 
-#ifdef XML
+#ifdef VART_XML
 
 #ifndef VART_XMLBASE_H
 #define VART_XMLBASE_H

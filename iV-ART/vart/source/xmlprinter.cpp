@@ -2,7 +2,7 @@
 /// \brief Implementation file for V-ART class "XmlPrinter".
 /// \version $Revision$
 
-#ifdef XML
+#ifdef VART_XML
 
 #include "vart/xmlprinter.h"
 #include "vart/scenenode.h"

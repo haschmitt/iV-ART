@@ -2,7 +2,7 @@
 /// \brief Header file for V-ART class "XmlAction".
 /// \version $Revision: 1.10 $
 
-#ifdef XML
+#ifdef VART_XML
 
 #ifndef VART_XMLACTION_H
 #define VART_XMLACTION_H

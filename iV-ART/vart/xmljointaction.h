@@ -2,7 +2,7 @@
 /// \brief Header file for V-ART class "XmlJointAction".
 /// \version $Revision: 1.1 $
 
-#ifdef XML
+#ifdef VART_XML
 
 #ifndef VART_XMLJOINTACTION_H
 #define VART_XMLJOINTACTION_H

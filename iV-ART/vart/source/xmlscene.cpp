@@ -2,7 +2,7 @@
 /// \brief Implementation file for V-ART class "XmlScene".
 /// \version $Revision: 1.9 $
 
-#ifdef XML
+#ifdef VART_XML
 
 #include "vart/xmlscene.h"
 #include "vart/meshobject.h"

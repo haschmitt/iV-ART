@@ -7,11 +7,18 @@
     #ifdef WIN32
         #include <windows.h>
     #endif
-	#if defined(__APPLE__) || defined(MACOSX)
+
+    #if defined(__APPLE__) || defined(MACOSX)
 		#include <OpenGL/gl.h>
 	#else
 		#include <GL/gl.h>
 	#endif
+#else
+    #ifdef VART_OGL_IOS
+        #include <OpenGLES/ES2/gl.h>
+        #include <OpenGLES/ES2/glext.h>
+    #define BUFFER_OFFSET(i) ((char *)NULL + (i))
+    #endif
 #endif
 
 using namespace VART;
@@ -96,7 +103,34 @@ bool VART::Triangle::DrawOGL() const
         recBBox.DrawInstanceOGL();
     return result;
 #else
-    return false;
+    #ifdef VART_OGL_IOS
+        GLfloat gTriangleVertexData[9] = {
+            1.0f, 0.0f, 0.0f,
+            0.0f, 0.0f, 0.0f,
+            0.0f, -1.0f, 0.0f,
+        };
+
+        GLuint _vertexArray;
+        GLuint _vertexBuffer;
+
+        glGenVertexArraysOES(1, &_vertexArray);
+        glBindVertexArrayOES(_vertexArray);
+
+        glGenBuffers(1, &_vertexBuffer);
+        glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(gTriangleVertexData), gTriangleVertexData, GL_STATIC_DRAW);
+
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 24, BUFFER_OFFSET(0));
+
+        glBindVertexArrayOES(0);
+    
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+
+        return true;
+    #endif
+
+    return true;
 #endif
 }
 
