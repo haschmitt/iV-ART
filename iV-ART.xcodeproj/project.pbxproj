@@ -706,7 +706,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
-					VART_OGL_IOS,
 				);
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					MACOSX,
@@ -714,10 +713,11 @@
 					_DEBUG,
 					VISUAL_JOINTS,
 					not__IL_LIB,
+					VART_OGL_IOS,
 				);
 				HEADER_SEARCH_PATHS = (
 					../,
-					"\"/Users/schmitt/Xcode Projects/iV-ART/iV-ART\"",
+					"iV-ART/",
 				);
 				INFOPLIST_FILE = "iV-ART/iV-ART-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
@@ -742,7 +742,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					../,
-					"\"/Users/schmitt/Xcode Projects/iV-ART/iV-ART\"",
+					"iV-ART/",
 				);
 				INFOPLIST_FILE = "iV-ART/iV-ART-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
