@@ -206,5 +206,7 @@ unsigned int VART::Light::getOpenGLID(unsigned int lightID) const {
 
         #endif //VART_OGL_IOS
     #endif //VART_OGL
+    
+    return 0;
 }
 

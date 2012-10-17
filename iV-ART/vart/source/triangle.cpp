@@ -104,10 +104,17 @@ bool VART::Triangle::DrawOGL() const
     return result;
 #else
     #ifdef VART_OGL_IOS
+
+//        GLfloat gTriangleVertexData[9] = {
+//            1.0f, 0.0f, 0.0f,
+//            0.0f, 0.0f, 0.0f,
+//            0.0f, -1.0f, 0.0f,
+//        };
+
         GLfloat gTriangleVertexData[9] = {
-            1.0f, 0.0f, 0.0f,
-            0.0f, 0.0f, 0.0f,
-            0.0f, -1.0f, 0.0f,
+            static_cast<GLfloat>(vertCoordVec[0]), static_cast<GLfloat>(vertCoordVec[1]), static_cast<GLfloat>(vertCoordVec[2]),
+            static_cast<GLfloat>(vertCoordVec[3]), static_cast<GLfloat>(vertCoordVec[4]), static_cast<GLfloat>(vertCoordVec[5]),
+            static_cast<GLfloat>(vertCoordVec[6]), static_cast<GLfloat>(vertCoordVec[7]), static_cast<GLfloat>(vertCoordVec[8]),
         };
 
         GLuint _vertexArray;
@@ -123,9 +130,9 @@ bool VART::Triangle::DrawOGL() const
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 24, BUFFER_OFFSET(0));
 
-        glBindVertexArrayOES(0);
-    
         glDrawArrays(GL_TRIANGLES, 0, 3);
+
+        glBindVertexArrayOES(0);
 
         return true;
     #endif

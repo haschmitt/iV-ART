@@ -108,37 +108,25 @@ GLfloat gTriangleVertexData[9] = {
 - (void)setupGL
 {
     [EAGLContext setCurrentContext:self.context];
-    
+
     [self loadShaders];
-    
+
     self.effect = [[GLKBaseEffect alloc] init];
     self.effect.light0.enabled = GL_TRUE;
     self.effect.light0.diffuseColor = GLKVector4Make(1.0f, 0.4f, 0.4f, 1.0f);
-    
-    glEnable(GL_DEPTH_TEST);
 
-//    glGenVertexArraysOES(1, &_vertexArray);
-//    glBindVertexArrayOES(_vertexArray);
-//
-//    glGenBuffers(1, &_vertexBuffer);
-//    glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
-//    glBufferData(GL_ARRAY_BUFFER, sizeof(gTriangleVertexData), gTriangleVertexData, GL_STATIC_DRAW);
-//
-//    glEnableVertexAttribArray(GLKVertexAttribPosition);
-//    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 24, BUFFER_OFFSET(0));
-//
-//    glBindVertexArrayOES(0);
+    glEnable(GL_DEPTH_TEST);
 }
 
 - (void)tearDownGL
 {
     [EAGLContext setCurrentContext:self.context];
-    
+
     glDeleteBuffers(1, &_vertexBuffer);
     glDeleteVertexArraysOES(1, &_vertexArray);
-    
+
     self.effect = nil;
-    
+
     if (_program) {
         glDeleteProgram(_program);
         _program = 0;
@@ -159,9 +147,6 @@ GLfloat gTriangleVertexData[9] = {
     
     // Compute the model view matrix for the object rendered with GLKit
     GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -1.5f);
-    modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
-    modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
-    
     self.effect.transform.modelviewMatrix = modelViewMatrix;
     
     // Compute the model view matrix for the object rendered with ES2
@@ -176,27 +161,27 @@ GLfloat gTriangleVertexData[9] = {
 {
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
+
     glBindVertexArrayOES(_vertexArray);
-    
+
     // Render the object again with ES2
     glUseProgram(_program);
 
     glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix.m);
-    
+
     VART::Triangle triangle;
+
+    VART::Point4D point1 = VART::Point4D(1,0,0);
+    VART::Point4D point2 = VART::Point4D(0,0,0);
+    VART::Point4D point3 = VART::Point4D(0,-1,0);
+    triangle.AddVertex(point1, point2, point3);
     triangle.DrawOGL();
 
-//    glDrawArrays(GL_TRIANGLES, 0, 3);
-
-//    VART::Camera camera(Point4D(0,2,-5), Point4D::ORIGIN(), Point4D::Y());
-//
-//    MeshObject base;
-//    base.MakeBox(-1,1,-0.1,0.1,-1,1);
-//    base.SetMaterial(Material::DARK_PLASTIC_GRAY());
+    VART::MeshObject base;
+    base.MakeBox(-1,1,-0.1,0.1,-1,1);
+    base.SetMaterial(VART::Material::DARK_PLASTIC_GRAY());
+    base.DrawOGL();
 //    scene.AddObject(&base);
-//    
-//    scene.AddLight(Light::BRIGHT_AMBIENT());
 }
 
 #pragma mark -  OpenGL ES 2 shader compilation

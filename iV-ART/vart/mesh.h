@@ -10,13 +10,19 @@
 #include <vector>
 
 #ifdef WIN32
-#include <windows.h>
+    #include <windows.h>
 #endif
+
 #ifdef VART_OGL
 	#if defined(__APPLE__) || defined(MACOSX)
         #include <OpenGL/gl.h>
     #else
         #include <GL/gl.h>
+    #endif
+#else
+    #ifdef VART_OGL_IOS
+        #include <OpenGLES/ES2/gl.h>
+        #include <OpenGLES/ES2/glext.h>
     #endif
 #endif
 
@@ -67,11 +73,18 @@ namespace VART {
             std::vector<unsigned int> normIndVec;
             Material material;
             MeshType type;
-        private:
+        
             #ifdef VART_OGL
-            /// \brief Converts from V-ART MeshType to OpenGL GLenum (for mesh types).
-            static GLenum GetOglType(MeshType type);
+                    /// \brief Converts from V-ART MeshType to OpenGL GLenum (for mesh types).
+                    static GLenum GetOglType(MeshType type);
+            #else
+            #ifdef VART_OGL_IOS
+                    /// \brief Converts from V-ART MeshType to OpenGL GLenum (for mesh types).
+                    static GLenum GetOglType(MeshType type);
             #endif
+            #endif
+        private:
+        
     }; // end class declaration
 } // end namespace
 #endif

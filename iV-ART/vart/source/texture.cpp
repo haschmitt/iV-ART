@@ -32,9 +32,9 @@ VART::Texture& VART::Texture::operator=(const VART::Texture& texture)
 
 bool VART::Texture::LoadFromFile(const std::string& fileName)
 {
-    unsigned int width = 0;
-    unsigned int height = 0;
-    void * imageData = NULL;
+//    unsigned int width = 0;
+//    unsigned int height = 0;
+//    void * imageData = NULL;
     bool result = false;
 
     // Reads the image data, and assign it to width, height and imageData variables.

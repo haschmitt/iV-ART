@@ -57,6 +57,29 @@ GLenum VART::Mesh::GetOglType(MeshType type) {
             return GL_POLYGON;
     }
 }
+#else
+    #ifdef VART_OGL_IOS
+        GLenum VART::Mesh::GetOglType(MeshType type) {
+            switch (type) {
+                case POINTS:
+                    return GL_POINTS;
+                case LINES:
+                    return GL_LINES;
+                case LINE_STRIP:
+                    return GL_LINE_STRIP;
+                case LINE_LOOP:
+                    return GL_LINE_LOOP;
+                case TRIANGLES:
+                    return GL_TRIANGLES;
+                case TRIANGLE_STRIP:
+                    return GL_TRIANGLE_STRIP;
+                case TRIANGLE_FAN:
+                    return GL_TRIANGLE_FAN;
+                default:
+                    return GL_TRIANGLES;
+            }
+        }
+    #endif
 #endif
 
 
