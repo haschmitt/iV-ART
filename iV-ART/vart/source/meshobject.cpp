@@ -747,71 +747,46 @@ bool VART::MeshObject::DrawInstanceOGL() const {
         list<VART::Mesh>::const_iterator iter;
         if (show) // if visible...
         {         // FixMe: no need to keep this old name; rename "show" to "visible".
-//            switch (howToShow)
-//            {
-//                case LINES:
-//                case LINES_AND_NORMALS:
-//                    glPolygonMode(GL_FRONT_AND_BACK, GL_LINES);
-//                    break;
-//                case POINTS:
-//                case POINTS_AND_NORMALS:
-//                    glPolygonMode(GL_FRONT_AND_BACK, GL_POINTS);
-//                    break;
-//                default:
-//                    glPolygonMode(GL_FRONT, GL_FILL);
-//                    break;
-//            }
-
             if (vertCoordVec.size() > 0)
             { // Optimized structure found - draw it!
                 GLfloat gMeshVertexData[vertCoordVec.size()];
-//                = {
-//                    static_cast<GLfloat>(vertCoordVec[0]), static_cast<GLfloat>(vertCoordVec[1]), static_cast<GLfloat>(vertCoordVec[2]),
-//                    static_cast<GLfloat>(vertCoordVec[3]), static_cast<GLfloat>(vertCoordVec[4]), static_cast<GLfloat>(vertCoordVec[5]),
-//                    static_cast<GLfloat>(vertCoordVec[6]), static_cast<GLfloat>(vertCoordVec[7]), static_cast<GLfloat>(vertCoordVec[8]),
-//                };
-                
+
+                cout << "inicio vetor" << endl;
+
                 for (int i = 0; i < vertCoordVec.size(); i++) {
                     gMeshVertexData[i] = static_cast<GLfloat>(vertCoordVec[i]);
+                    
+                    cout << gMeshVertexData[i]     << endl;
                 }
+
+                cout << "fim vetor" << endl;
 
                 GLuint _vertexArray;
                 GLuint _vertexBuffer;
 
                 glGenVertexArraysOES(1, &_vertexArray);
                 glBindVertexArrayOES(_vertexArray);
-                
+
                 glGenBuffers(1, &_vertexBuffer);
                 glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
                 glBufferData(GL_ARRAY_BUFFER, sizeof(gMeshVertexData), gMeshVertexData, GL_STATIC_DRAW);
-                
+
                 glEnableVertexAttribArray(0);
-//                glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 24, BUFFER_OFFSET(0));
-                
                 glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-//                glNormalPointer(GL_FLOAT, 0, &normCoordVec[0]);
-  
-//                assert(vertCoordVec.size() == normCoordVec.size());
-                
-//                if ((howToShow == LINES_AND_NORMALS) || (howToShow == POINTS_AND_NORMALS))
-//                { // Draw normals
-                    glDrawArrays(GL_LINES, 0, 2);
-                    glBindVertexArrayOES(0);
-                    return true;
-//                }
+
+                glDrawArrays(GL_LINES, 0, sizeof(gMeshVertexData));
+                glBindVertexArrayOES(0);
             }
         }
-    
-//        if(bBox.visible)
-//            bBox.DrawInstanceOGL();
-//        if(recBBox.visible)
-//            recBBox.DrawInstanceOGL();
+
+            bBox.DrawInstanceOGL();
+            recBBox.DrawInstanceOGL();
         return result;
     #else
         return false;
     #endif
 #endif
-    
+
     return false;
 }
 

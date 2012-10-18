@@ -137,24 +137,49 @@ GLfloat gTriangleVertexData[9] = {
 
 - (void)update
 {
+//    float aspect = fabsf(self.view.bounds.size.width / self.view.bounds.size.height);
+//    GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
+//
+//    self.effect.transform.projectionMatrix = projectionMatrix;
+//
+//    GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -4.0f);
+//    baseModelViewMatrix = GLKMatrix4Rotate(baseModelViewMatrix, _rotation, 0.0f, 1.0f, 0.0f);
+//    
+//    // Compute the model view matrix for the object rendered with GLKit
+//    GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -1.5f);
+//    self.effect.transform.modelviewMatrix = modelViewMatrix;
+//    
+//    // Compute the model view matrix for the object rendered with ES2
+//    modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 1.5f);
+//    modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
+//    modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
+//    
+//    _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
+    
     float aspect = fabsf(self.view.bounds.size.width / self.view.bounds.size.height);
     GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
-
+    
     self.effect.transform.projectionMatrix = projectionMatrix;
-
+    
     GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -4.0f);
     baseModelViewMatrix = GLKMatrix4Rotate(baseModelViewMatrix, _rotation, 0.0f, 1.0f, 0.0f);
     
     // Compute the model view matrix for the object rendered with GLKit
     GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -1.5f);
+    modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
+    modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
+
     self.effect.transform.modelviewMatrix = modelViewMatrix;
-    
+
     // Compute the model view matrix for the object rendered with ES2
     modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 1.5f);
     modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
     modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
-    
+
     _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
+
+    _rotation += self.timeSinceLastUpdate * 0.5f;
+
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
@@ -169,13 +194,13 @@ GLfloat gTriangleVertexData[9] = {
 
     glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix.m);
 
-    VART::Triangle triangle;
-
-    VART::Point4D point1 = VART::Point4D(1,0,0);
-    VART::Point4D point2 = VART::Point4D(0,0,0);
-    VART::Point4D point3 = VART::Point4D(0,-1,0);
-    triangle.AddVertex(point1, point2, point3);
-    triangle.DrawOGL();
+//    VART::Triangle triangle;
+//
+//    VART::Point4D point1 = VART::Point4D(1,0,0);
+//    VART::Point4D point2 = VART::Point4D(0,0,0);
+//    VART::Point4D point3 = VART::Point4D(0,-1,0);
+//    triangle.AddVertex(point1, point2, point3);
+//    triangle.DrawOGL();
 
     VART::MeshObject base;
     base.MakeBox(-1,1,-0.1,0.1,-1,1);
@@ -217,6 +242,7 @@ GLfloat gTriangleVertexData[9] = {
     // Bind attribute locations.
     // This needs to be done prior to linking.
     glBindAttribLocation(_program, GLKVertexAttribPosition, "position");
+    glBindAttribLocation(_program, GLKVertexAttribNormal, "normal");
     
     // Link program.
     if (![self linkProgram:_program]) {

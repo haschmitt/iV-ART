@@ -13,6 +13,11 @@
     #else
         #include <GL/glut.h>
     #endif
+#else
+    #ifdef VART_OGL_IOS
+        #include <OpenGLES/ES2/gl.h>
+        #include <OpenGLES/ES2/glext.h>
+    #endif
 #endif
 #include <iostream>
 
