@@ -17,7 +17,7 @@
     #ifdef VART_OGL_IOS
         #include <OpenGLES/ES2/gl.h>
         #include <OpenGLES/ES2/glext.h>
-    #define BUFFER_OFFSET(i) ((char *)NULL + (i))
+        #define BUFFER_OFFSET(i) ((char *)NULL + (i))
     #endif
 #endif
 

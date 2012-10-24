@@ -11,6 +11,7 @@
 #include "vart/scene.h"
 #include "vart/point4d.h"
 #include "vart/triangle.h"
+#include "vart/uniaxialjoint.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
@@ -20,6 +21,7 @@ using namespace VART;
 enum
 {
     UNIFORM_MODELVIEWPROJECTION_MATRIX,
+    UNIFORM_NORMAL_MATRIX,
     NUM_UNIFORMS
 };
 GLint uniforms[NUM_UNIFORMS];
@@ -28,6 +30,7 @@ GLint uniforms[NUM_UNIFORMS];
 enum
 {
     ATTRIB_VERTEX,
+    ATTRIB_NORMAL,
     NUM_ATTRIBUTES
 };
 
@@ -41,6 +44,7 @@ GLfloat gTriangleVertexData[9] = {
     GLuint _program;
 
     GLKMatrix4 _modelViewProjectionMatrix;
+    GLKMatrix3 _normalMatrix;
     float _rotation;
 
     GLuint _vertexArray;
@@ -116,6 +120,7 @@ GLfloat gTriangleVertexData[9] = {
     self.effect.light0.diffuseColor = GLKVector4Make(1.0f, 0.4f, 0.4f, 1.0f);
 
     glEnable(GL_DEPTH_TEST);
+    
 }
 
 - (void)tearDownGL
@@ -137,53 +142,38 @@ GLfloat gTriangleVertexData[9] = {
 
 - (void)update
 {
-//    float aspect = fabsf(self.view.bounds.size.width / self.view.bounds.size.height);
-//    GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
-//
-//    self.effect.transform.projectionMatrix = projectionMatrix;
-//
-//    GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -4.0f);
-//    baseModelViewMatrix = GLKMatrix4Rotate(baseModelViewMatrix, _rotation, 0.0f, 1.0f, 0.0f);
-//    
-//    // Compute the model view matrix for the object rendered with GLKit
-//    GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -1.5f);
-//    self.effect.transform.modelviewMatrix = modelViewMatrix;
-//    
-//    // Compute the model view matrix for the object rendered with ES2
-//    modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 1.5f);
-//    modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
-//    modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
-//    
-//    _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
-    
     float aspect = fabsf(self.view.bounds.size.width / self.view.bounds.size.height);
     GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
     
+    projectionMatrix = GLKMatrix4Multiply(projectionMatrix, GLKMatrix4MakeTranslation(-0.5f, -1.0f, -1.0f));
+    
+    projectionMatrix = GLKMatrix4RotateX(projectionMatrix, GLKMathDegreesToRadians(15.0f));
+    
     self.effect.transform.projectionMatrix = projectionMatrix;
     
-    GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -4.0f);
-    baseModelViewMatrix = GLKMatrix4Rotate(baseModelViewMatrix, _rotation, 0.0f, 1.0f, 0.0f);
-    
     // Compute the model view matrix for the object rendered with GLKit
-    GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -1.5f);
-    modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
+    GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.5f, 0.0f, 1.5f);
+    
+    //    self.effect.transform.modelviewMatrix = modelViewMatrix;
+    
+    GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -4.0f);
+    
+    modelViewMatrix = GLKMatrix4MakeTranslation(0.1f * _rotation, 0.0f, 0.0f);
+    
+//    modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, -1.0f,0.0f);
     modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
-
-    self.effect.transform.modelviewMatrix = modelViewMatrix;
-
-    // Compute the model view matrix for the object rendered with ES2
-    modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 1.5f);
-    modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
-    modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
-
+    
+    _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(modelViewMatrix), NULL);
+    
     _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
-
+    
     _rotation += self.timeSinceLastUpdate * 0.5f;
 
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
+    
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -193,20 +183,59 @@ GLfloat gTriangleVertexData[9] = {
     glUseProgram(_program);
 
     glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix.m);
+    glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
 
-//    VART::Triangle triangle;
-//
-//    VART::Point4D point1 = VART::Point4D(1,0,0);
-//    VART::Point4D point2 = VART::Point4D(0,0,0);
-//    VART::Point4D point3 = VART::Point4D(0,-1,0);
-//    triangle.AddVertex(point1, point2, point3);
-//    triangle.DrawOGL();
-
+    VART::MeshObject base2;
+    base2.MakeBox(-0.5,0.5,-0.1,0.1,-0.5,0.5);
+    base2.SetMaterial(VART::Material::DARK_PLASTIC_GRAY());
+    
+    VART::UniaxialJoint baseJoint2;
+    VART::Dof* dofPtr2 = baseJoint2.AddDof(Point4D::Y(), Point4D::ORIGIN(), -3.141592654, 3.141592654);
+    dofPtr2->MoveTo(0.4);
+    base2.AddChild(baseJoint2);
+    
+    
     VART::MeshObject base;
     base.MakeBox(-1,1,-0.1,0.1,-1,1);
     base.SetMaterial(VART::Material::DARK_PLASTIC_GRAY());
+
+    VART::UniaxialJoint baseJoint;
+    VART::Dof* dofPtr1 = baseJoint.AddDof(Point4D::Y(), Point4D::ORIGIN(), -3.141592654, 3.141592654);
+    dofPtr1->MoveTo(0.4);
+    base.AddChild(baseJoint);
+
+    /*
+//    base -> arm1
+    VART::MeshObject arm1;
+    arm1.MakeBox(-0.1,0.1, 0,0.5, -0.1,0.1);
+    arm1.SetMaterial(VART::Material::PLASTIC_GREEN());
+    baseJoint.AddChild(arm1);
+
+    VART::UniaxialJoint joint12; // joint from arm1 to arm2
+    VART::Dof* dofPtr2 = joint12.AddDof(Point4D::Z(), Point4D(0,0.5,0), -1.570796327, 1.570796327);
+    dofPtr2->MoveTo(0.4);
+    arm1.AddChild(joint12);
+
+//    joint12 -> arm2
+    VART::MeshObject arm2;
+    arm2.MakeBox(-0.1,0.1, 0.5,1, -0.1,0.1);
+    arm2.SetMaterial(VART::Material::PLASTIC_GREEN());
+    joint12.AddChild(arm2);
+
+    VART::UniaxialJoint joint23; // joint from arm2 to arm3
+    VART::Dof* dofPtr3 = joint23.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+    dofPtr3->MoveTo(0.4);
+    arm2.AddChild(joint23);
+
+//    joint23 -> arm3
+    VART::MeshObject arm3;
+    arm3.MakeBox(-0.1,0.1, 1,1.5, -0.1,0.1);
+    arm3.SetMaterial(VART::Material::PLASTIC_GREEN());
+    joint23.AddChild(arm3);
+     */
+
     base.DrawOGL();
-//    scene.AddObject(&base);
+    base2.DrawOGL();
 }
 
 #pragma mark -  OpenGL ES 2 shader compilation
@@ -215,10 +244,10 @@ GLfloat gTriangleVertexData[9] = {
 {
     GLuint vertShader, fragShader;
     NSString *vertShaderPathname, *fragShaderPathname;
-    
+
     // Create shader program.
     _program = glCreateProgram();
-    
+
     // Create and compile vertex shader.
     vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shader" ofType:@"vsh"];
     if (![self compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname]) {

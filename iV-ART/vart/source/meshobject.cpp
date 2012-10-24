@@ -750,16 +750,15 @@ bool VART::MeshObject::DrawInstanceOGL() const {
             if (vertCoordVec.size() > 0)
             { // Optimized structure found - draw it!
                 GLfloat gMeshVertexData[vertCoordVec.size()];
-
-                cout << "inicio vetor" << endl;
+                
+//                cout << "Início do Vetor" << endl;
 
                 for (int i = 0; i < vertCoordVec.size(); i++) {
                     gMeshVertexData[i] = static_cast<GLfloat>(vertCoordVec[i]);
-                    
-                    cout << gMeshVertexData[i]     << endl;
+//                    cout << gMeshVertexData[i] << endl;
                 }
-
-                cout << "fim vetor" << endl;
+                
+//                cout << "Fim do Vetor" << endl;
 
                 GLuint _vertexArray;
                 GLuint _vertexBuffer;
@@ -779,8 +778,8 @@ bool VART::MeshObject::DrawInstanceOGL() const {
             }
         }
 
-            bBox.DrawInstanceOGL();
-            recBBox.DrawInstanceOGL();
+        bBox.DrawInstanceOGL();
+        recBBox.DrawInstanceOGL();
         return result;
     #else
         return false;

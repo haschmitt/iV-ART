@@ -11,6 +11,12 @@ using namespace std;
 #ifdef VISUAL_JOINTS
 float VART::Dof::axisSize = 0.5;
 #endif
+
+#ifdef VART_OGL_IOS
+    #include <OpenGLES/ES2/glext.h>
+    #include <OpenGLES/ES2/gl.h>
+#endif
+
 list<VART::Dof*> VART::Dof::instanceList;
 
 VART::Dof::Dof()
@@ -382,7 +388,90 @@ bool VART::Dof::DrawInstanceOGL() const
     glEnd();
     return true;
 #else
-    return false;
+    #ifdef VART_OGL_IOS
+        float width = axisSize * 0.04; // width of the axis line
+        VART::Transform axisRotation; // a rotation around the axis
+        VART::Point4D scaledAxis; // a vector from base to tip
+        VART::Point4D baseVector; // rotating this vector on the base, we get base vertices
+        VART::Point4D vertexVector[4]; // vertices
+        
+        scaledAxis = axis * axisSize;
+        if ((1 - axis.DotProduct(VART::Point4D::Y())) < 0.01)
+            // axis is too close to Y
+            baseVector = VART::Point4D::X() * width;
+        else
+            // axis is not close to Y
+            baseVector = VART::Point4D::Y() * width;
+        axisRotation.MakeRotation(axis, 1.57079632679489661923); // set the rotation
+        vertexVector[0] = position + baseVector;
+        vertexVector[1] = vertexVector[0] + scaledAxis;
+    
+        GLfloat gDofVertex[16] = {
+            static_cast<GLfloat>(vertexVector[3].GetX()),
+            static_cast<GLfloat>(vertexVector[3].GetY()),
+            static_cast<GLfloat>(vertexVector[3].GetZ()),
+            static_cast<GLfloat>(vertexVector[3].GetW()),
+            static_cast<GLfloat>(vertexVector[2].GetX()),
+            static_cast<GLfloat>(vertexVector[2].GetY()),
+            static_cast<GLfloat>(vertexVector[2].GetZ()),
+            static_cast<GLfloat>(vertexVector[2].GetW()),
+            static_cast<GLfloat>(vertexVector[1].GetX()),
+            static_cast<GLfloat>(vertexVector[1].GetY()),
+            static_cast<GLfloat>(vertexVector[1].GetZ()),
+            static_cast<GLfloat>(vertexVector[1].GetW()),
+            static_cast<GLfloat>(vertexVector[0].GetX()),
+            static_cast<GLfloat>(vertexVector[0].GetY()),
+            static_cast<GLfloat>(vertexVector[0].GetZ()),
+            static_cast<GLfloat>(vertexVector[0].GetW()),
+        };
+    
+        for (int i = 1; i < 5; ++i) {
+            axisRotation.ApplyTo(&baseVector);
+            vertexVector[2] = (position + scaledAxis) + baseVector;
+            vertexVector[3] = position + baseVector;
+            
+            gDofVertex[0] = static_cast<GLfloat>(vertexVector[3].GetX());
+            gDofVertex[1] = static_cast<GLfloat>(vertexVector[3].GetY());
+            gDofVertex[2] = static_cast<GLfloat>(vertexVector[3].GetZ());
+            gDofVertex[3] = static_cast<GLfloat>(vertexVector[3].GetW());
+            gDofVertex[4] = static_cast<GLfloat>(vertexVector[2].GetX());
+            gDofVertex[5] = static_cast<GLfloat>(vertexVector[2].GetY());
+            gDofVertex[6] = static_cast<GLfloat>(vertexVector[2].GetZ());
+            gDofVertex[7] = static_cast<GLfloat>(vertexVector[2].GetW());
+            gDofVertex[8] = static_cast<GLfloat>(vertexVector[1].GetX());
+            gDofVertex[9] = static_cast<GLfloat>(vertexVector[1].GetY());
+            gDofVertex[10] = static_cast<GLfloat>(vertexVector[1].GetZ());
+            gDofVertex[11] = static_cast<GLfloat>(vertexVector[1].GetW());
+            gDofVertex[12] = static_cast<GLfloat>(vertexVector[0].GetX());
+            gDofVertex[13] = static_cast<GLfloat>(vertexVector[0].GetY());
+            gDofVertex[14] = static_cast<GLfloat>(vertexVector[0].GetZ());
+            gDofVertex[15] = static_cast<GLfloat>(vertexVector[0].GetW());
+
+            //desenha
+            GLuint _vertexArray;
+            GLuint _vertexBuffer;
+            
+            glGenVertexArraysOES(1, &_vertexArray);
+            glBindVertexArrayOES(_vertexArray);
+
+            glGenBuffers(1, &_vertexBuffer);
+            glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
+            glBufferData(GL_ARRAY_BUFFER, sizeof(gDofVertex), gDofVertex, GL_STATIC_DRAW);
+
+            glEnableVertexAttribArray(0);
+            glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0);
+
+            glDrawArrays(GL_LINE_LOOP, 0, sizeof(gDofVertex));
+            glBindVertexArrayOES(0);
+
+            vertexVector[0] = vertexVector[3];
+            vertexVector[1] = vertexVector[2];
+        }
+
+        return true;
+    #else
+        return false;
+    #endif
 #endif // VART_OGL
 }
 #endif // VISUAL_JOINTS
