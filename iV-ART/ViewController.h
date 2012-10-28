@@ -11,7 +11,7 @@
 #include "vart/Scene.h"
 
 @interface ViewController : GLKViewController {
-    VART::Scene scene;
+    
 }
 
 @end
