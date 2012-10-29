@@ -168,7 +168,7 @@ namespace VART {
             /// Computes the normal of every vertex by computing face normals and then computing
             /// the average of all normals for faces that share a vertex.
             void ComputeVertexNormals();
-
+        
         // STATIC PUBLIC METHODS
             /// \brief Computes the normal of a triangle.
             /// \param v1 [in] 1st triangle vertex

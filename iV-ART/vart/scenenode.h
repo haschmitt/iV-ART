@@ -65,6 +65,7 @@ namespace VART {
             /// \brief Recursive drawing using OpenGL commands
             /// \return false if V-ART is was not compiled with OpenGL support
             virtual bool DrawOGL() const;
+            virtual bool DrawOGL(float *model, float *projection) const;
 
             /// \brief Draws and object, setting pick info
             ///

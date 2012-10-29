@@ -161,6 +161,43 @@ GLfloat gTriangleVertexData[9] = {
 
     _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
 
+    float model[16];
+    float projection[16];
+
+    model[0]  = _modelViewProjectionMatrix.m00;
+    model[1]  = _modelViewProjectionMatrix.m01;
+    model[2]  = _modelViewProjectionMatrix.m02;
+    model[3]  = _modelViewProjectionMatrix.m03;
+    model[4]  = _modelViewProjectionMatrix.m10;
+    model[5]  = _modelViewProjectionMatrix.m11;
+    model[6]  = _modelViewProjectionMatrix.m12;
+    model[7]  = _modelViewProjectionMatrix.m13;
+    model[8]  = _modelViewProjectionMatrix.m20;
+    model[9]  = _modelViewProjectionMatrix.m21;
+    model[10] = _modelViewProjectionMatrix.m22;
+    model[11] = _modelViewProjectionMatrix.m23;
+    model[12] = _modelViewProjectionMatrix.m30;
+    model[13] = _modelViewProjectionMatrix.m31;
+    model[14] = _modelViewProjectionMatrix.m32;
+    model[15] = _modelViewProjectionMatrix.m33;
+
+    projection[0]  = projectionMatrix.m00;
+    projection[1]  = projectionMatrix.m01;
+    projection[2]  = projectionMatrix.m02;
+    projection[3]  = projectionMatrix.m03;
+    projection[4]  = projectionMatrix.m10;
+    projection[5]  = projectionMatrix.m11;
+    projection[6]  = projectionMatrix.m12;
+    projection[7]  = projectionMatrix.m13;
+    projection[8]  = projectionMatrix.m20;
+    projection[9]  = projectionMatrix.m21;
+    projection[10] = projectionMatrix.m22;
+    projection[11] = projectionMatrix.m23;
+    projection[12] = projectionMatrix.m30;
+    projection[13] = projectionMatrix.m31;
+    projection[14] = projectionMatrix.m32;
+    projection[15] = projectionMatrix.m33;
+
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -187,30 +224,31 @@ GLfloat gTriangleVertexData[9] = {
     arm1.MakeBox(-0.1,0.1, 0,0.5, -0.1,0.1);
     arm1.SetMaterial(VART::Material::PLASTIC_GREEN());
     baseJoint.AddChild(arm1);
-    
+
     VART::UniaxialJoint joint12; // joint from arm1 to arm2
     VART::Dof* dofPtr2 = joint12.AddDof(Point4D::Z(), Point4D(0,0.5,0), -1.570796327, 1.570796327);
     dofPtr2->MoveTo(0.4);
     arm1.AddChild(joint12);
-    
+
     //    joint12 -> arm2
     VART::MeshObject arm2;
     arm2.MakeBox(-0.1,0.1, 0.5,1, -0.1,0.1);
     arm2.SetMaterial(VART::Material::PLASTIC_GREEN());
     joint12.AddChild(arm2);
-    
+
     VART::UniaxialJoint joint23; // joint from arm2 to arm3
     VART::Dof* dofPtr3 = joint23.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
     dofPtr3->MoveTo(0.4);
     arm2.AddChild(joint23);
-    
+
     //    joint23 -> arm3
     VART::MeshObject arm3;
     arm3.MakeBox(-0.1,0.1, 1,1.5, -0.1,0.1);
     arm3.SetMaterial(VART::Material::PLASTIC_GREEN());
     joint23.AddChild(arm3);
     
-    base.DrawOGL();
+    base.DrawOGL(model, projection);
+//    base.DrawOGL();
 }
 
 #pragma mark -  OpenGL ES 2 shader compilation

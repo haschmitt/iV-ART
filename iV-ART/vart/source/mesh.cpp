@@ -82,6 +82,9 @@ GLenum VART::Mesh::GetOglType(MeshType type) {
     #endif
 #endif
 
+void setMatrix(float *model, float *projection, float *normal) {
+
+}
 
 bool VART::Mesh::DrawInstanceOGL() const {
 #ifdef VART_OGL

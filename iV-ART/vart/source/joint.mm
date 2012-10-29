@@ -196,6 +196,122 @@ bool VART::Joint::HasDof(DofID dof)
 }
 
 #ifdef VISUAL_JOINTS
+bool VART::Joint::DrawOGL(float *model, float *projection) const {
+    bool result = true;
+    list<VART::SceneNode*>::const_iterator iter;
+    list<VART::Dof*>::const_iterator dofIter;
+    int i = 0;
+    GLKMatrix4 _modelViewProjectionMatrix;
+    GLKMatrix3 _normalMatrix;
+    
+    GLKMatrix4 projectionMatrix;
+    projectionMatrix.m00 = projection[0];
+    projectionMatrix.m01 = projection[1];
+    projectionMatrix.m02 = projection[2];
+    projectionMatrix.m03 = projection[3];
+    projectionMatrix.m10 = projection[4];
+    projectionMatrix.m11 = projection[5];
+    projectionMatrix.m12 = projection[6];
+    projectionMatrix.m13 = projection[7];
+    projectionMatrix.m20 = projection[8];
+    projectionMatrix.m21 = projection[9];
+    projectionMatrix.m22 = projection[10];
+    projectionMatrix.m23 = projection[11];
+    projectionMatrix.m30 = projection[12];
+    projectionMatrix.m31 = projection[13];
+    projectionMatrix.m32 = projection[14];
+    projectionMatrix.m33 = projection[15];
+    
+    GLKMatrix4 modelViewMatrix;
+    modelViewMatrix.m00 = model[0];
+    modelViewMatrix.m01 = model[1];
+    modelViewMatrix.m02 = model[2];
+    modelViewMatrix.m03 = model[3];
+    modelViewMatrix.m10 = model[4];
+    modelViewMatrix.m11 = model[5];
+    modelViewMatrix.m12 = model[6];
+    modelViewMatrix.m13 = model[7];
+    modelViewMatrix.m20 = model[8];
+    modelViewMatrix.m21 = model[9];
+    modelViewMatrix.m22 = model[10];
+    modelViewMatrix.m23 = model[11];
+    modelViewMatrix.m30 = model[12];
+    modelViewMatrix.m31 = model[13];
+    modelViewMatrix.m32 = model[14];
+    modelViewMatrix.m33 = model[15];
+    
+    for (dofIter = dofList.begin(); dofIter != dofList.end(); ++dofIter)
+    {
+        GLKMatrix4 matrix;
+        matrix.m00 = static_cast<float>((*dofIter)->GetLim().GetData()[0]);
+        matrix.m01 = static_cast<float>((*dofIter)->GetLim().GetData()[1]);
+        matrix.m02 = static_cast<float>((*dofIter)->GetLim().GetData()[2]);
+        matrix.m03 = static_cast<float>((*dofIter)->GetLim().GetData()[3]);
+        matrix.m10 = static_cast<float>((*dofIter)->GetLim().GetData()[4]);
+        matrix.m11 = static_cast<float>((*dofIter)->GetLim().GetData()[5]);
+        matrix.m12 = static_cast<float>((*dofIter)->GetLim().GetData()[6]);
+        matrix.m13 = static_cast<float>((*dofIter)->GetLim().GetData()[7]);
+        matrix.m20 = static_cast<float>((*dofIter)->GetLim().GetData()[8]);
+        matrix.m21 = static_cast<float>((*dofIter)->GetLim().GetData()[9]);
+        matrix.m22 = static_cast<float>((*dofIter)->GetLim().GetData()[10]);
+        matrix.m23 = static_cast<float>((*dofIter)->GetLim().GetData()[11]);
+        matrix.m30 = static_cast<float>((*dofIter)->GetLim().GetData()[12]);
+        matrix.m31 = static_cast<float>((*dofIter)->GetLim().GetData()[13]);
+        matrix.m32 = static_cast<float>((*dofIter)->GetLim().GetData()[14]);
+        matrix.m33 = static_cast<float>((*dofIter)->GetLim().GetData()[15]);
+        
+        modelViewMatrix = GLKMatrix4Multiply(modelViewMatrix, matrix);
+        _modelViewProjectionMatrix = modelViewMatrix;
+        
+        glUniformMatrix4fv(uniforms2[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix.m);
+        glUniformMatrix3fv(uniforms2[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
+        
+        GetMaterial(i).DrawOGL();
+        (*dofIter)->DrawInstanceOGL();
+        ++i;
+    }
+    
+    model[0]  = _modelViewProjectionMatrix.m00;
+    model[1]  = _modelViewProjectionMatrix.m01;
+    model[2]  = _modelViewProjectionMatrix.m02;
+    model[3]  = _modelViewProjectionMatrix.m03;
+    model[4]  = _modelViewProjectionMatrix.m10;
+    model[5]  = _modelViewProjectionMatrix.m11;
+    model[6]  = _modelViewProjectionMatrix.m12;
+    model[7]  = _modelViewProjectionMatrix.m13;
+    model[8]  = _modelViewProjectionMatrix.m20;
+    model[9]  = _modelViewProjectionMatrix.m21;
+    model[10] = _modelViewProjectionMatrix.m22;
+    model[11] = _modelViewProjectionMatrix.m23;
+    model[12] = _modelViewProjectionMatrix.m30;
+    model[13] = _modelViewProjectionMatrix.m31;
+    model[14] = _modelViewProjectionMatrix.m32;
+    model[15] = _modelViewProjectionMatrix.m33;
+
+    projection[0]  = projectionMatrix.m00;
+    projection[1]  = projectionMatrix.m01;
+    projection[2]  = projectionMatrix.m02;
+    projection[3]  = projectionMatrix.m03;
+    projection[4]  = projectionMatrix.m10;
+    projection[5]  = projectionMatrix.m11;
+    projection[6]  = projectionMatrix.m12;
+    projection[7]  = projectionMatrix.m13;
+    projection[8]  = projectionMatrix.m20;
+    projection[9]  = projectionMatrix.m21;
+    projection[10] = projectionMatrix.m22;
+    projection[11] = projectionMatrix.m23;
+    projection[12] = projectionMatrix.m30;
+    projection[13] = projectionMatrix.m31;
+    projection[14] = projectionMatrix.m32;
+    projection[15] = projectionMatrix.m33;
+
+    for (iter = childList.begin(); iter != childList.end(); ++iter)
+        result &= (*iter)->DrawOGL(model, projection);
+    return result;
+}
+#endif
+
+#ifdef VISUAL_JOINTS
 bool VART::Joint::DrawOGL() const
 {
 #ifdef VART_OGL

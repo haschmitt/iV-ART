@@ -63,6 +63,8 @@ namespace VART {
             #ifdef VART_OGL
             GLenum GetOglType() const { return GetOglType(type); }
             #endif
+        
+            void setMatrix(float *model, float *projection, float *normal);
 
             void IncrementIndices(unsigned int increment);
 

@@ -73,6 +73,15 @@ bool VART::SceneNode::DetachChild(SceneNode* childPtr)
     return false;
 }
 
+bool VART::SceneNode::DrawOGL(float *model, float *projection) const {
+    bool result = DrawInstanceOGL();
+    list<VART::SceneNode*>::const_iterator iter = childList.begin();
+    for (; iter != childList.end(); ++iter)
+        result = (result && (*iter)->DrawOGL(model, projection));
+    return result;
+
+}
+
 bool VART::SceneNode::DrawOGL() const
 {
     bool result = DrawInstanceOGL();
