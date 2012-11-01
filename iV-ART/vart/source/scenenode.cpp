@@ -11,6 +11,7 @@
 #include "vart/snlocator.h"
 
 #include <cassert>
+
 using namespace std;
 
 bool VART::SceneNode::recursivePrinting = true;
@@ -73,13 +74,12 @@ bool VART::SceneNode::DetachChild(SceneNode* childPtr)
     return false;
 }
 
-bool VART::SceneNode::DrawOGL(float *model, float *projection) const {
+bool VART::SceneNode::DrawOGL(float *model) const {
     bool result = DrawInstanceOGL();
     list<VART::SceneNode*>::const_iterator iter = childList.begin();
     for (; iter != childList.end(); ++iter)
-        result = (result && (*iter)->DrawOGL(model, projection));
+        result = (result && (*iter)->DrawOGL(model));
     return result;
-
 }
 
 bool VART::SceneNode::DrawOGL() const

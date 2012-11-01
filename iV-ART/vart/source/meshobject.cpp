@@ -745,6 +745,7 @@ bool VART::MeshObject::DrawInstanceOGL() const {
     #ifdef VART_OGL_IOS
         bool result = true;
         list<VART::Mesh>::const_iterator iter;
+
         if (show) // if visible...
         {         // FixMe: no need to keep this old name; rename "show" to "visible".
             if (vertCoordVec.size() > 0)
@@ -757,12 +758,12 @@ bool VART::MeshObject::DrawInstanceOGL() const {
                     gMeshVertexData[i] = static_cast<GLfloat>(vertCoordVec[i]);
 //                    cout << gMeshVertexData[i] << endl;
                 }
-                
+
 //                cout << "Fim do Vetor" << endl;
 
                 GLuint _vertexArray;
                 GLuint _vertexBuffer;
-
+                
                 glGenVertexArraysOES(1, &_vertexArray);
                 glBindVertexArrayOES(_vertexArray);
 

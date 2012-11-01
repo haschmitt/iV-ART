@@ -19,6 +19,8 @@
 		2A200671160BE33B007DEA74 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 2A200670160BE33B007DEA74 /* Shader.fsh */; };
 		2A200673160BE33B007DEA74 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 2A200672160BE33B007DEA74 /* Shader.vsh */; };
 		2A200676160BE33B007DEA74 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2A200675160BE33B007DEA74 /* ViewController.mm */; };
+		2A31CA0A1642034A00BE8D1E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A31CA091642034A00BE8D1E /* QuartzCore.framework */; };
+		2A3D8236164212BA00AEE662 /* GlobalVar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3D8235164212BA00AEE662 /* GlobalVar.m */; };
 		2AEF9D38160DFC7400789B16 /* human.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9C69160DFC7400789B16 /* human.cpp */; };
 		2AEF9D39160DFC7400789B16 /* mousecontrol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9C6A160DFC7400789B16 /* mousecontrol.cpp */; };
 		2AEF9D3A160DFC7400789B16 /* pnmexporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9C6B160DFC7400789B16 /* pnmexporter.cpp */; };
@@ -47,7 +49,7 @@
 		2AEF9D6B160DFC7400789B16 /* jointmover.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9CCA160DFC7400789B16 /* jointmover.cpp */; };
 		2AEF9D6D160DFC7400789B16 /* light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9CCC160DFC7400789B16 /* light.cpp */; };
 		2AEF9D6F160DFC7400789B16 /* linearinterpolator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9CCE160DFC7400789B16 /* linearinterpolator.cpp */; };
-		2AEF9D71160DFC7400789B16 /* material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9CD0160DFC7400789B16 /* material.cpp */; };
+		2AEF9D71160DFC7400789B16 /* material.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9CD0160DFC7400789B16 /* material.mm */; };
 		2AEF9D73160DFC7400789B16 /* memoryobj.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9CD2160DFC7400789B16 /* memoryobj.cpp */; };
 		2AEF9D75160DFC7400789B16 /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9CD4160DFC7400789B16 /* mesh.cpp */; };
 		2AEF9D77160DFC7400789B16 /* meshobject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9CD6160DFC7400789B16 /* meshobject.cpp */; };
@@ -71,7 +73,7 @@
 		2AEF9D9D160DFC7400789B16 /* snlocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9CFC160DFC7400789B16 /* snlocator.cpp */; };
 		2AEF9DA0160DFC7400789B16 /* sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9CFF160DFC7400789B16 /* sphere.cpp */; };
 		2AEF9DA2160DFC7400789B16 /* spotlight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9D01160DFC7400789B16 /* spotlight.cpp */; };
-		2AEF9DA4160DFC7400789B16 /* texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9D03160DFC7400789B16 /* texture.cpp */; };
+		2AEF9DA4160DFC7400789B16 /* texture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9D03160DFC7400789B16 /* texture.mm */; };
 		2AEF9DA6160DFC7400789B16 /* time.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9D05160DFC7400789B16 /* time.cpp */; };
 		2AEF9DA8160DFC7400789B16 /* transform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9D07160DFC7400789B16 /* transform.cpp */; };
 		2AEF9DAA160DFC7400789B16 /* transformaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9D09160DFC7400789B16 /* transformaction.cpp */; };
@@ -105,6 +107,9 @@
 		2A200672160BE33B007DEA74 /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
 		2A200674160BE33B007DEA74 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		2A200675160BE33B007DEA74 /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
+		2A31CA091642034A00BE8D1E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		2A3D8234164212BA00AEE662 /* GlobalVar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalVar.h; sourceTree = "<group>"; };
+		2A3D8235164212BA00AEE662 /* GlobalVar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalVar.m; sourceTree = "<group>"; };
 		2AEF9C57160DFC7400789B16 /* action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = action.h; sourceTree = "<group>"; };
 		2AEF9C58160DFC7400789B16 /* addresslocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = addresslocator.h; sourceTree = "<group>"; };
 		2AEF9C59160DFC7400789B16 /* arrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = arrow.h; sourceTree = "<group>"; };
@@ -190,7 +195,7 @@
 		2AEF9CCA160DFC7400789B16 /* jointmover.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jointmover.cpp; sourceTree = "<group>"; };
 		2AEF9CCC160DFC7400789B16 /* light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = light.cpp; sourceTree = "<group>"; };
 		2AEF9CCE160DFC7400789B16 /* linearinterpolator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = linearinterpolator.cpp; sourceTree = "<group>"; };
-		2AEF9CD0160DFC7400789B16 /* material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = material.cpp; sourceTree = "<group>"; };
+		2AEF9CD0160DFC7400789B16 /* material.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = material.mm; sourceTree = "<group>"; };
 		2AEF9CD2160DFC7400789B16 /* memoryobj.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = memoryobj.cpp; sourceTree = "<group>"; };
 		2AEF9CD4160DFC7400789B16 /* mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mesh.cpp; sourceTree = "<group>"; };
 		2AEF9CD6160DFC7400789B16 /* meshobject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = meshobject.cpp; sourceTree = "<group>"; };
@@ -215,7 +220,7 @@
 		2AEF9CFC160DFC7400789B16 /* snlocator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = snlocator.cpp; sourceTree = "<group>"; };
 		2AEF9CFF160DFC7400789B16 /* sphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sphere.cpp; sourceTree = "<group>"; };
 		2AEF9D01160DFC7400789B16 /* spotlight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = spotlight.cpp; sourceTree = "<group>"; };
-		2AEF9D03160DFC7400789B16 /* texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = texture.cpp; sourceTree = "<group>"; };
+		2AEF9D03160DFC7400789B16 /* texture.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = texture.mm; sourceTree = "<group>"; };
 		2AEF9D05160DFC7400789B16 /* time.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = time.cpp; sourceTree = "<group>"; };
 		2AEF9D07160DFC7400789B16 /* transform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transform.cpp; sourceTree = "<group>"; };
 		2AEF9D09160DFC7400789B16 /* transformaction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transformaction.cpp; sourceTree = "<group>"; };
@@ -252,6 +257,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A31CA0A1642034A00BE8D1E /* QuartzCore.framework in Frameworks */,
 				2A200658160BE33B007DEA74 /* UIKit.framework in Frameworks */,
 				2A20065A160BE33B007DEA74 /* Foundation.framework in Frameworks */,
 				2A20065C160BE33B007DEA74 /* CoreGraphics.framework in Frameworks */,
@@ -284,6 +290,7 @@
 		2A200656160BE33B007DEA74 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2A31CA091642034A00BE8D1E /* QuartzCore.framework */,
 				2A200657160BE33B007DEA74 /* UIKit.framework */,
 				2A200659160BE33B007DEA74 /* Foundation.framework */,
 				2A20065B160BE33B007DEA74 /* CoreGraphics.framework */,
@@ -303,6 +310,8 @@
 				2A200672160BE33B007DEA74 /* Shader.vsh */,
 				2A200674160BE33B007DEA74 /* ViewController.h */,
 				2A200675160BE33B007DEA74 /* ViewController.mm */,
+				2A3D8234164212BA00AEE662 /* GlobalVar.h */,
+				2A3D8235164212BA00AEE662 /* GlobalVar.m */,
 				2AEF9C56160DFC7400789B16 /* vart */,
 				2A200662160BE33B007DEA74 /* Supporting Files */,
 			);
@@ -448,7 +457,7 @@
 				2AEF9CCA160DFC7400789B16 /* jointmover.cpp */,
 				2AEF9CCC160DFC7400789B16 /* light.cpp */,
 				2AEF9CCE160DFC7400789B16 /* linearinterpolator.cpp */,
-				2AEF9CD0160DFC7400789B16 /* material.cpp */,
+				2AEF9CD0160DFC7400789B16 /* material.mm */,
 				2AEF9CD2160DFC7400789B16 /* memoryobj.cpp */,
 				2AEF9CD4160DFC7400789B16 /* mesh.cpp */,
 				2AEF9CD6160DFC7400789B16 /* meshobject.cpp */,
@@ -473,7 +482,7 @@
 				2AEF9CFC160DFC7400789B16 /* snlocator.cpp */,
 				2AEF9CFF160DFC7400789B16 /* sphere.cpp */,
 				2AEF9D01160DFC7400789B16 /* spotlight.cpp */,
-				2AEF9D03160DFC7400789B16 /* texture.cpp */,
+				2AEF9D03160DFC7400789B16 /* texture.mm */,
 				2AEF9D05160DFC7400789B16 /* time.cpp */,
 				2AEF9D07160DFC7400789B16 /* transform.cpp */,
 				2AEF9D09160DFC7400789B16 /* transformaction.cpp */,
@@ -587,7 +596,7 @@
 				2AEF9D6B160DFC7400789B16 /* jointmover.cpp in Sources */,
 				2AEF9D6D160DFC7400789B16 /* light.cpp in Sources */,
 				2AEF9D6F160DFC7400789B16 /* linearinterpolator.cpp in Sources */,
-				2AEF9D71160DFC7400789B16 /* material.cpp in Sources */,
+				2AEF9D71160DFC7400789B16 /* material.mm in Sources */,
 				2AEF9D73160DFC7400789B16 /* memoryobj.cpp in Sources */,
 				2AEF9D75160DFC7400789B16 /* mesh.cpp in Sources */,
 				2AEF9D77160DFC7400789B16 /* meshobject.cpp in Sources */,
@@ -611,7 +620,7 @@
 				2AEF9D9D160DFC7400789B16 /* snlocator.cpp in Sources */,
 				2AEF9DA0160DFC7400789B16 /* sphere.cpp in Sources */,
 				2AEF9DA2160DFC7400789B16 /* spotlight.cpp in Sources */,
-				2AEF9DA4160DFC7400789B16 /* texture.cpp in Sources */,
+				2AEF9DA4160DFC7400789B16 /* texture.mm in Sources */,
 				2AEF9DA6160DFC7400789B16 /* time.cpp in Sources */,
 				2AEF9DA8160DFC7400789B16 /* transform.cpp in Sources */,
 				2AEF9DAA160DFC7400789B16 /* transformaction.cpp in Sources */,
@@ -624,6 +633,7 @@
 				2AEF9DBF160DFC7400789B16 /* xmljointaction.cpp in Sources */,
 				2AEF9DC1160DFC7400789B16 /* xmlprinter.cpp in Sources */,
 				2AEF9DC3160DFC7400789B16 /* xmlscene.cpp in Sources */,
+				2A3D8236164212BA00AEE662 /* GlobalVar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

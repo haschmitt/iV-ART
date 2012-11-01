@@ -8,6 +8,8 @@
 
 #import "GlobalVar.h"
 
+GLint uniforms[NUM_UNIFORMS];
+
 @implementation GlobalVar
 
 @end

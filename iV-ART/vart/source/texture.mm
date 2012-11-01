@@ -5,6 +5,10 @@
 #include "vart/texture.h"
 #include <cassert>
 
+#ifdef VART_OGL_IOS
+    #include <GLKit/GLKit.h>
+#endif
+
 bool VART::Texture::hasWhiteTexture=false;
 unsigned int VART::Texture::whiteTextureId=0;
 
@@ -75,6 +79,25 @@ bool VART::Texture::LoadFromFile(const std::string& fileName)
     {
         result = false;
     }
+#else
+    #ifdef VART_OGL_IOS
+//    if(imageData!=NULL)
+//    {
+//        hasTexture = true;
+//        glGenTextures(1,&textureId);
+//        glBindTexture(GL_TEXTURE_2D, textureId);
+//        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+//        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+//        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
+//        result = true;
+//
+//        assert(glGetError()==GL_NO_ERROR);
+//    }
+//    else
+//    {
+//        result = false;
+//    }
+    #endif
 #endif //VART_OGL
 
     //Free the image data.
@@ -124,6 +147,23 @@ bool VART::Texture::DrawOGL() const
     }
 //*/
     result = true;
+#else
+    #ifdef VART_OGL_IOS
+        if( hasTexture )
+        {
+            glEnable(GL_TEXTURE_2D);
+            glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+            glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE );
+            glBindTexture( GL_TEXTURE_2D, textureId );
+        }
+        else
+        {
+            glDisable(GL_TEXTURE_2D);
+            glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+        }
+    
+        result = true;
+    #endif
 #endif //VART_OGL
 
     return result;
@@ -142,6 +182,16 @@ void VART::Texture::WhiteTexture()
     glTexParameteri( GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR );
     glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, 1, 1, 0, GL_RGB, GL_UNSIGNED_BYTE, data );
     VART::Texture::hasWhiteTexture=true;
+#else
+    #ifdef VART_OGL_IOS
+        unsigned char data[3]={255,255,255};
+        glGenTextures( 1, &whiteTextureId );
+        glBindTexture( GL_TEXTURE_2D, whiteTextureId );
+        glTexParameteri( GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR );
+        glTexParameteri( GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR );
+        glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, 1, 1, 0, GL_RGB, GL_UNSIGNED_BYTE, data );
+        VART::Texture::hasWhiteTexture=true;
+    #endif
 #endif //VART_OGL
 }
 

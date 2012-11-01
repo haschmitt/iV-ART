@@ -12,19 +12,11 @@
 #include "vart/point4d.h"
 #include "vart/triangle.h"
 #include "vart/uniaxialjoint.h"
+#import "GlobalVar.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
 using namespace VART;
-
-// Uniform index.
-enum
-{
-    UNIFORM_MODELVIEWPROJECTION_MATRIX,
-    UNIFORM_NORMAL_MATRIX,
-    NUM_UNIFORMS
-};
-GLint uniforms[NUM_UNIFORMS];
 
 // Attribute index.
 enum
@@ -34,21 +26,19 @@ enum
     NUM_ATTRIBUTES
 };
 
-GLfloat gTriangleVertexData[9] = {
-    1.0f, 0.0f, 0.0f,
-    0.0f, 0.0f, 0.0f,
-    0.0f, -1.0f, 0.0f,
-};
-
 @interface ViewController () {
     GLuint _program;
 
     GLKMatrix4 _modelViewProjectionMatrix;
     GLKMatrix3 _normalMatrix;
+    GLKMatrix2 _color;
+    
     float _rotation;
 
     GLuint _vertexArray;
     GLuint _vertexBuffer;
+    
+    float _lastRotation;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -65,6 +55,27 @@ GLfloat gTriangleVertexData[9] = {
 
 @implementation ViewController
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSSet *allTouches = [event allTouches];
+    UITouch *touch = [[UITouch alloc] init];
+    CGPoint currentTouch;
+
+    for (int nTouch = 0;  nTouch < [allTouches count];  nTouch++)
+    {
+        touch = [[allTouches allObjects] objectAtIndex:nTouch];
+        currentTouch = [touch locationInView:[touch view]];
+    }
+
+    if (currentTouch.y > self.view.bounds.size.height/2) {
+        if (currentTouch.x > self.view.bounds.size.width/2) {
+            _lastRotation = _lastRotation + 0.1f;
+        } else {
+            _lastRotation = _lastRotation - 0.1f;
+        }
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -78,8 +89,12 @@ GLfloat gTriangleVertexData[9] = {
     GLKView *view = (GLKView *)self.view;
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
+    view.userInteractionEnabled = YES;
+    view.multipleTouchEnabled = true;
     
     [self setupGL];
+//    self.preferredFramesPerSecond = 0;
+    _lastRotation = 0.0f;
 }
 
 - (void)viewDidUnload
@@ -162,7 +177,6 @@ GLfloat gTriangleVertexData[9] = {
     _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
 
     float model[16];
-    float projection[16];
 
     model[0]  = _modelViewProjectionMatrix.m00;
     model[1]  = _modelViewProjectionMatrix.m01;
@@ -181,23 +195,6 @@ GLfloat gTriangleVertexData[9] = {
     model[14] = _modelViewProjectionMatrix.m32;
     model[15] = _modelViewProjectionMatrix.m33;
 
-    projection[0]  = projectionMatrix.m00;
-    projection[1]  = projectionMatrix.m01;
-    projection[2]  = projectionMatrix.m02;
-    projection[3]  = projectionMatrix.m03;
-    projection[4]  = projectionMatrix.m10;
-    projection[5]  = projectionMatrix.m11;
-    projection[6]  = projectionMatrix.m12;
-    projection[7]  = projectionMatrix.m13;
-    projection[8]  = projectionMatrix.m20;
-    projection[9]  = projectionMatrix.m21;
-    projection[10] = projectionMatrix.m22;
-    projection[11] = projectionMatrix.m23;
-    projection[12] = projectionMatrix.m30;
-    projection[13] = projectionMatrix.m31;
-    projection[14] = projectionMatrix.m32;
-    projection[15] = projectionMatrix.m33;
-
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -212,11 +209,19 @@ GLfloat gTriangleVertexData[9] = {
     //base 1
     VART::MeshObject base;
     base.MakeBox(-1,1,-0.1,0.1,-1,1);
-    base.SetMaterial(VART::Material::DARK_PLASTIC_GRAY());
+    VART::Material mat = VART::Material::DARK_PLASTIC_GRAY();
+    base.SetMaterial(mat);
+
+    _color.m00 = mat.GetDiffuseColor().GetR()/255.0f;
+    _color.m01 = mat.GetDiffuseColor().GetG()/255.0f;
+    _color.m10 = mat.GetDiffuseColor().GetB()/255.0f;
+    _color.m11 = mat.GetDiffuseColor().GetA()/255.0f;
+
+    glUniformMatrix2fv(uniforms[UNIFORM_COLOR_MATRIX], 1, 0, _color.m);
 
     VART::UniaxialJoint baseJoint;
     VART::Dof* dofPtr1 = baseJoint.AddDof(Point4D::Y(), Point4D::ORIGIN(), -3.141592654, 3.141592654);
-    dofPtr1->MoveTo(0.4);
+    dofPtr1->MoveTo(0.4+_lastRotation);
     base.AddChild(baseJoint);
 
     //    base -> arm1
@@ -229,13 +234,13 @@ GLfloat gTriangleVertexData[9] = {
     VART::Dof* dofPtr2 = joint12.AddDof(Point4D::Z(), Point4D(0,0.5,0), -1.570796327, 1.570796327);
     dofPtr2->MoveTo(0.4);
     arm1.AddChild(joint12);
-
+//
     //    joint12 -> arm2
     VART::MeshObject arm2;
     arm2.MakeBox(-0.1,0.1, 0.5,1, -0.1,0.1);
     arm2.SetMaterial(VART::Material::PLASTIC_GREEN());
     joint12.AddChild(arm2);
-
+//
     VART::UniaxialJoint joint23; // joint from arm2 to arm3
     VART::Dof* dofPtr3 = joint23.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
     dofPtr3->MoveTo(0.4);
@@ -246,9 +251,8 @@ GLfloat gTriangleVertexData[9] = {
     arm3.MakeBox(-0.1,0.1, 1,1.5, -0.1,0.1);
     arm3.SetMaterial(VART::Material::PLASTIC_GREEN());
     joint23.AddChild(arm3);
-    
-    base.DrawOGL(model, projection);
-//    base.DrawOGL();
+
+    base.DrawOGL(model);
 }
 
 #pragma mark -  OpenGL ES 2 shader compilation
@@ -308,7 +312,9 @@ GLfloat gTriangleVertexData[9] = {
 
     // Get uniform locations.
     uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_program, "modelViewProjectionMatrix");
-
+    
+    uniforms[UNIFORM_COLOR_MATRIX] = glGetUniformLocation(_program, "colorMatrix");
+    
     // Release vertex and fragment shaders.
     if (vertShader) {
         glDetachShader(_program, vertShader);

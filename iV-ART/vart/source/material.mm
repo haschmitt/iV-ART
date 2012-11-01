@@ -15,8 +15,9 @@
     #endif
 #else
     #ifdef VART_OGL_IOS
-        #include <OpenGLES/ES2/gl.h>
-        #include <OpenGLES/ES2/glext.h>
+//        #include <OpenGLES/ES2/gl.h>
+//        #include <OpenGLES/ES2/glext.h>
+        #include <GLKit/GLKit.h>
     #endif
 #endif
 
@@ -135,6 +136,24 @@ bool VART::Material::DrawOGL() const
     glMaterialf(GL_FRONT, GL_SHININESS, shininess);
     return true;
 #else
-    return false;
+    #ifdef VART_OGL_IOS
+        GLfloat fVec[4];
+
+        texture.DrawOGL();
+        color.Get(fVec);
+        glColor4f(fVec[0], fVec[1], fVec[2], fVec[3]);
+//        glColor4fv(fVec);
+        glMaterialfv(GL_FRONT, GL_DIFFUSE, fVec);
+        ambient.Get(fVec);
+        glMaterialfv(GL_FRONT, GL_AMBIENT, fVec);
+        specular.Get(fVec);
+        glMaterialfv(GL_FRONT, GL_SPECULAR, fVec);
+        emissive.Get(fVec);
+        glMaterialfv(GL_FRONT, GL_EMISSION, fVec);
+        glMaterialf(GL_FRONT, GL_SHININESS, shininess);
+        return true;
+    #else
+        return false;
+    #endif
 #endif
 }

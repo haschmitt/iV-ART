@@ -21,24 +21,18 @@
 //        #include <OpenGLES/ES2/gl.h>
 //        #include <OpenGLES/ES2/glext.h>
         #include <GLKit/GLKit.h>
+        #import "GlobalVar.h"
     #endif
 #endif
 
-// Uniform index.
 //enum
 //{
 //    UNIFORM_MODELVIEWPROJECTION_MATRIX,
+//    UNIFORM_NORMAL_MATRIX,
+//    UNIFORM_COLOR_MATRIX,
 //    NUM_UNIFORMS
 //};
 //GLint uniforms2[NUM_UNIFORMS];
-
-enum
-{
-    UNIFORM_MODELVIEWPROJECTION_MATRIX,
-    UNIFORM_NORMAL_MATRIX,
-    NUM_UNIFORMS
-};
-GLint uniforms2[NUM_UNIFORMS];
 
 using namespace std;
 
@@ -196,32 +190,15 @@ bool VART::Joint::HasDof(DofID dof)
 }
 
 #ifdef VISUAL_JOINTS
-bool VART::Joint::DrawOGL(float *model, float *projection) const {
+bool VART::Joint::DrawOGL(float *model) const {
     bool result = true;
     list<VART::SceneNode*>::const_iterator iter;
     list<VART::Dof*>::const_iterator dofIter;
     int i = 0;
     GLKMatrix4 _modelViewProjectionMatrix;
     GLKMatrix3 _normalMatrix;
-    
-    GLKMatrix4 projectionMatrix;
-    projectionMatrix.m00 = projection[0];
-    projectionMatrix.m01 = projection[1];
-    projectionMatrix.m02 = projection[2];
-    projectionMatrix.m03 = projection[3];
-    projectionMatrix.m10 = projection[4];
-    projectionMatrix.m11 = projection[5];
-    projectionMatrix.m12 = projection[6];
-    projectionMatrix.m13 = projection[7];
-    projectionMatrix.m20 = projection[8];
-    projectionMatrix.m21 = projection[9];
-    projectionMatrix.m22 = projection[10];
-    projectionMatrix.m23 = projection[11];
-    projectionMatrix.m30 = projection[12];
-    projectionMatrix.m31 = projection[13];
-    projectionMatrix.m32 = projection[14];
-    projectionMatrix.m33 = projection[15];
-    
+    GLKMatrix2 _color;
+
     GLKMatrix4 modelViewMatrix;
     modelViewMatrix.m00 = model[0];
     modelViewMatrix.m01 = model[1];
@@ -239,7 +216,7 @@ bool VART::Joint::DrawOGL(float *model, float *projection) const {
     modelViewMatrix.m31 = model[13];
     modelViewMatrix.m32 = model[14];
     modelViewMatrix.m33 = model[15];
-    
+
     for (dofIter = dofList.begin(); dofIter != dofList.end(); ++dofIter)
     {
         GLKMatrix4 matrix;
@@ -259,18 +236,18 @@ bool VART::Joint::DrawOGL(float *model, float *projection) const {
         matrix.m31 = static_cast<float>((*dofIter)->GetLim().GetData()[13]);
         matrix.m32 = static_cast<float>((*dofIter)->GetLim().GetData()[14]);
         matrix.m33 = static_cast<float>((*dofIter)->GetLim().GetData()[15]);
-        
+
         modelViewMatrix = GLKMatrix4Multiply(modelViewMatrix, matrix);
         _modelViewProjectionMatrix = modelViewMatrix;
-        
-        glUniformMatrix4fv(uniforms2[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix.m);
-        glUniformMatrix3fv(uniforms2[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
-        
+
+        glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix.m);
+        glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
+
         GetMaterial(i).DrawOGL();
         (*dofIter)->DrawInstanceOGL();
         ++i;
     }
-    
+
     model[0]  = _modelViewProjectionMatrix.m00;
     model[1]  = _modelViewProjectionMatrix.m01;
     model[2]  = _modelViewProjectionMatrix.m02;
@@ -288,25 +265,19 @@ bool VART::Joint::DrawOGL(float *model, float *projection) const {
     model[14] = _modelViewProjectionMatrix.m32;
     model[15] = _modelViewProjectionMatrix.m33;
 
-    projection[0]  = projectionMatrix.m00;
-    projection[1]  = projectionMatrix.m01;
-    projection[2]  = projectionMatrix.m02;
-    projection[3]  = projectionMatrix.m03;
-    projection[4]  = projectionMatrix.m10;
-    projection[5]  = projectionMatrix.m11;
-    projection[6]  = projectionMatrix.m12;
-    projection[7]  = projectionMatrix.m13;
-    projection[8]  = projectionMatrix.m20;
-    projection[9]  = projectionMatrix.m21;
-    projection[10] = projectionMatrix.m22;
-    projection[11] = projectionMatrix.m23;
-    projection[12] = projectionMatrix.m30;
-    projection[13] = projectionMatrix.m31;
-    projection[14] = projectionMatrix.m32;
-    projection[15] = projectionMatrix.m33;
+    VART::Material mat = GetMaterial(i);
+    
+    _color.m00 = mat.GetDiffuseColor().GetR()/255.0f;
+    _color.m01 = mat.GetDiffuseColor().GetG()/255.0f;
+    _color.m10 = mat.GetDiffuseColor().GetB()/255.0f;
+    _color.m11 = mat.GetDiffuseColor().GetA()/255.0f;
+    
+    glUniformMatrix2fv(uniforms[UNIFORM_COLOR_MATRIX], 1, 0, _color.m);
 
+    
     for (iter = childList.begin(); iter != childList.end(); ++iter)
-        result &= (*iter)->DrawOGL(model, projection);
+        result &= (*iter)->DrawOGL(model);
+
     return result;
 }
 #endif
@@ -379,8 +350,8 @@ bool VART::Joint::DrawOGL() const
             _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(modelViewMatrix), NULL);
             _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
 
-            glUniformMatrix4fv(uniforms2[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix.m);
-            glUniformMatrix3fv(uniforms2[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
+            glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix.m);
+            glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
 
             GetMaterial(i).DrawOGL();
             (*dofIter)->DrawInstanceOGL();

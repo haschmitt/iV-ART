@@ -8,6 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+enum
+{
+    UNIFORM_MODELVIEWPROJECTION_MATRIX,
+    UNIFORM_NORMAL_MATRIX,
+    UNIFORM_COLOR_MATRIX,
+    NUM_UNIFORMS
+};
+extern GLint uniforms[NUM_UNIFORMS];
+
 @interface GlobalVar : NSObject
 
 @end

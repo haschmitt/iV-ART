@@ -106,7 +106,7 @@ namespace VART {
 
     #ifdef VISUAL_JOINTS
             virtual bool DrawOGL() const;
-            virtual bool DrawOGL(float *model, float *projection) const;
+            virtual bool DrawOGL(float *model) const;
     #endif
 
         protected:
