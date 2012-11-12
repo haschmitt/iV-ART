@@ -32,13 +32,29 @@ enum
     GLKMatrix4 _modelViewProjectionMatrix;
     GLKMatrix3 _normalMatrix;
     GLKMatrix2 _color;
+    GLKMatrix4 projectionMatrix;
+    GLKMatrix4 modelViewMatrix;
+    GLKMatrix4 baseModelViewMatrix;
     
     float _rotation;
+    float _lastRotation;
+    float model[16];
+    float aspect;
 
     GLuint _vertexArray;
     GLuint _vertexBuffer;
-    
-    float _lastRotation;
+
+    VART::MeshObject base;
+    VART::Material mat;
+    VART::Dof* dofPtr1;
+    VART::Dof* dofPtr2;
+    VART::Dof* dofPtr3;
+    VART::MeshObject arm1;
+    VART::MeshObject arm2;
+    VART::MeshObject arm3;
+    VART::UniaxialJoint baseJoint;
+    VART::UniaxialJoint joint12;
+    VART::UniaxialJoint joint23;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -46,6 +62,7 @@ enum
 
 - (void)setupGL;
 - (void)tearDownGL;
+- (void)setupScene;
 
 - (BOOL)loadShaders;
 - (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file;
@@ -70,8 +87,14 @@ enum
     if (currentTouch.y > self.view.bounds.size.height/2) {
         if (currentTouch.x > self.view.bounds.size.width/2) {
             _lastRotation = _lastRotation + 0.1f;
+            if (_lastRotation > 1.0f) {
+                _lastRotation = 1.0f;
+            }
         } else {
             _lastRotation = _lastRotation - 0.1f;
+            if (_lastRotation < 0.0f) {
+                _lastRotation = 0.0f;
+            }
         }
     }
 }
@@ -79,21 +102,19 @@ enum
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
 
     if (!self.context) {
         NSLog(@"Failed to create ES context");
     }
-    
+
     GLKView *view = (GLKView *)self.view;
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
-    view.userInteractionEnabled = YES;
-    view.multipleTouchEnabled = true;
     
     [self setupGL];
-//    self.preferredFramesPerSecond = 0;
+    [self setupScene];
     _lastRotation = 0.0f;
 }
 
@@ -135,7 +156,6 @@ enum
     self.effect.light0.diffuseColor = GLKVector4Make(1.0f, 0.4f, 0.4f, 1.0f);
 
     glEnable(GL_DEPTH_TEST);
-    
 }
 
 - (void)tearDownGL
@@ -153,9 +173,39 @@ enum
     }
 }
 
+-(void) setupScene {
+    dofPtr1 = baseJoint.AddDof(Point4D::Y(),Point4D::ORIGIN(), -3.141592654, 3.141592654);
+    base.AddChild(baseJoint);
+    
+    base.MakeBox(-1,1,-0.1,0.1,-1,1);
+    mat = VART::Material::DARK_PLASTIC_GRAY();
+    base.SetMaterial(mat);
+    
+    //    base -> arm1
+    arm1.MakeBox(-0.1,0.1, 0,0.5, -0.1,0.1);
+    arm1.SetMaterial(VART::Material::PLASTIC_GREEN());
+    baseJoint.AddChild(arm1);
+
+    dofPtr2 = joint12.AddDof(Point4D::Z(), Point4D(0,0.5,0), -1.570796327, 1.570796327);
+    arm1.AddChild(joint12);
+
+    //    joint12 -> arm2
+    arm2.MakeBox(-0.1,0.1, 0.5,1, -0.1,0.1);
+    arm2.SetMaterial(VART::Material::PLASTIC_GREEN());
+    joint12.AddChild(arm2);
+    
+    dofPtr3 = joint23.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+    arm2.AddChild(joint23);
+    
+    //    joint23 -> arm3
+    arm3.MakeBox(-0.1,0.1, 1,1.5, -0.1,0.1);
+    arm3.SetMaterial(VART::Material::PLASTIC_GREEN());
+    joint23.AddChild(arm3);
+}
+
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
-    float aspect = fabsf(self.view.bounds.size.width / self.view.bounds.size.height);
-    GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
+    aspect = fabsf(self.view.bounds.size.width / self.view.bounds.size.height);
+    projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
 
     projectionMatrix = GLKMatrix4Multiply(projectionMatrix, GLKMatrix4MakeTranslation(-0.5f, -1.0f, -2.0f));
 
@@ -163,20 +213,17 @@ enum
 
     self.effect.transform.projectionMatrix = projectionMatrix;
 
-    // Compute the model view matrix for the object rendered with GLKit
-    GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.5f, 0.0f, 1.5f);
+    modelViewMatrix = GLKMatrix4MakeTranslation(0.5f, 0.0f, 1.5f);
 
     self.effect.transform.modelviewMatrix = modelViewMatrix;
 
-    GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -4.0f);
+    baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -4.0f);
 
     modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
 
     _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(modelViewMatrix), NULL);
 
     _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
-
-    float model[16];
 
     model[0]  = _modelViewProjectionMatrix.m00;
     model[1]  = _modelViewProjectionMatrix.m01;
@@ -206,52 +253,17 @@ enum
     glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix.m);
     glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
 
-    //base 1
-    VART::MeshObject base;
-    base.MakeBox(-1,1,-0.1,0.1,-1,1);
-    VART::Material mat = VART::Material::DARK_PLASTIC_GRAY();
-    base.SetMaterial(mat);
-
     _color.m00 = mat.GetDiffuseColor().GetR()/255.0f;
     _color.m01 = mat.GetDiffuseColor().GetG()/255.0f;
     _color.m10 = mat.GetDiffuseColor().GetB()/255.0f;
     _color.m11 = mat.GetDiffuseColor().GetA()/255.0f;
-
+    
     glUniformMatrix2fv(uniforms[UNIFORM_COLOR_MATRIX], 1, 0, _color.m);
-
-    VART::UniaxialJoint baseJoint;
-    VART::Dof* dofPtr1 = baseJoint.AddDof(Point4D::Y(), Point4D::ORIGIN(), -3.141592654, 3.141592654);
-    dofPtr1->MoveTo(0.4+_lastRotation);
-    base.AddChild(baseJoint);
-
-    //    base -> arm1
-    VART::MeshObject arm1;
-    arm1.MakeBox(-0.1,0.1, 0,0.5, -0.1,0.1);
-    arm1.SetMaterial(VART::Material::PLASTIC_GREEN());
-    baseJoint.AddChild(arm1);
-
-    VART::UniaxialJoint joint12; // joint from arm1 to arm2
-    VART::Dof* dofPtr2 = joint12.AddDof(Point4D::Z(), Point4D(0,0.5,0), -1.570796327, 1.570796327);
-    dofPtr2->MoveTo(0.4);
-    arm1.AddChild(joint12);
-//
-    //    joint12 -> arm2
-    VART::MeshObject arm2;
-    arm2.MakeBox(-0.1,0.1, 0.5,1, -0.1,0.1);
-    arm2.SetMaterial(VART::Material::PLASTIC_GREEN());
-    joint12.AddChild(arm2);
-//
-    VART::UniaxialJoint joint23; // joint from arm2 to arm3
-    VART::Dof* dofPtr3 = joint23.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+    
+    dofPtr1->MoveTo(0.4);
+    dofPtr2->MoveTo(_lastRotation);
     dofPtr3->MoveTo(0.4);
-    arm2.AddChild(joint23);
-
-    //    joint23 -> arm3
-    VART::MeshObject arm3;
-    arm3.MakeBox(-0.1,0.1, 1,1.5, -0.1,0.1);
-    arm3.SetMaterial(VART::Material::PLASTIC_GREEN());
-    joint23.AddChild(arm3);
-
+    
     base.DrawOGL(model);
 }
 
