@@ -13,7 +13,6 @@ varying lowp vec4 colorVarying;
 
 uniform mat4 modelViewProjectionMatrix;
 uniform mat3 normalMatrix;
-//uniform vec4 colorVector;
 uniform mat2 colorMatrix;
 
 void main()
