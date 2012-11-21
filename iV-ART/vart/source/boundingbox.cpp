@@ -264,27 +264,30 @@ bool VART::BoundingBox::DrawInstanceOGL() const {
         static_cast<GLfloat>(greaterX), static_cast<GLfloat>(greaterY), static_cast<GLfloat>(greaterZ),
         static_cast<GLfloat>(greaterX), static_cast<GLfloat>(smallerY), static_cast<GLfloat>(greaterZ)
     };
-
+    
     GLuint _vertexArray;
     GLuint _vertexBuffer;
-    
+
     glGenVertexArraysOES(1, &_vertexArray);
     glBindVertexArrayOES(_vertexArray);
-    
+
     glGenBuffers(1, &_vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(gBoxVertexData), gBoxVertexData, GL_STATIC_DRAW);
-    
+
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-    
+
     glDrawArrays(GL_LINE_LOOP, 0, 4);
     glDrawArrays(GL_LINE_LOOP, 4, 4);
     glDrawArrays(GL_LINE_LOOP, 8, 4);
     glDrawArrays(GL_LINE_LOOP, 12, 4);
-    
+
     glBindVertexArrayOES(0);
     
+    glDeleteBuffers(1, &_vertexBuffer);
+    glDeleteVertexArraysOES(1, &_vertexArray);
+
     return true;
 
     #else

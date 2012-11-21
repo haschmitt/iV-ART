@@ -225,7 +225,7 @@ namespace VART {
             /// This is the unoptimized storage of vertices. It must be a vector (not
             /// a list) because the internal meshes identifies vertices by integers.
             std::vector<Point4D> vertVec;
-
+        
             /// \brief Vector of all vertex coordinates (their coordinates in sequence).
             ///
             /// This is the optimized storage of vertices. It must be a vector (not

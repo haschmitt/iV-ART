@@ -10,8 +10,9 @@
 #include <cstdlib>
 
 #ifdef VART_OGL_IOS
-    #include <OpenGLES/ES2/glext.h>
-    #include <OpenGLES/ES2/gl.h>
+//    #include <OpenGLES/ES2/glext.h>
+//    #include <OpenGLES/ES2/gl.h>
+    #import <GLKit/GLKit.h>
 #endif
 
 using namespace std;
@@ -743,22 +744,19 @@ bool VART::MeshObject::DrawInstanceOGL() const {
     return result;
 #else
     #ifdef VART_OGL_IOS
-        bool result = true;
-        list<VART::Mesh>::const_iterator iter;
-
         if (show) // if visible...
         {         // FixMe: no need to keep this old name; rename "show" to "visible".
             if (vertCoordVec.size() > 0)
             { // Optimized structure found - draw it!
                 GLfloat gMeshVertexData[vertCoordVec.size()];
-                
+
                 for (int i = 0; i < vertCoordVec.size(); i++) {
                     gMeshVertexData[i] = static_cast<GLfloat>(vertCoordVec[i]);
                 }
 
                 GLuint _vertexArray;
                 GLuint _vertexBuffer;
-                
+
                 glGenVertexArraysOES(1, &_vertexArray);
                 glBindVertexArrayOES(_vertexArray);
 
@@ -771,12 +769,15 @@ bool VART::MeshObject::DrawInstanceOGL() const {
 
                 glDrawArrays(GL_LINES, 0, sizeof(gMeshVertexData));
                 glBindVertexArrayOES(0);
+                
+                glDeleteBuffers(1, &_vertexBuffer);
+                glDeleteVertexArraysOES(1, &_vertexArray);
             }
         }
 
         bBox.DrawInstanceOGL();
         recBBox.DrawInstanceOGL();
-        return result;
+        return true;
     #else
         return false;
     #endif

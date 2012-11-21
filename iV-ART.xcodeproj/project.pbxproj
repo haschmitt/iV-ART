@@ -52,7 +52,7 @@
 		2AEF9D71160DFC7400789B16 /* material.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9CD0160DFC7400789B16 /* material.mm */; };
 		2AEF9D73160DFC7400789B16 /* memoryobj.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9CD2160DFC7400789B16 /* memoryobj.cpp */; };
 		2AEF9D75160DFC7400789B16 /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9CD4160DFC7400789B16 /* mesh.cpp */; };
-		2AEF9D77160DFC7400789B16 /* meshobject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9CD6160DFC7400789B16 /* meshobject.cpp */; };
+		2AEF9D77160DFC7400789B16 /* meshobject.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9CD6160DFC7400789B16 /* meshobject.mm */; };
 		2AEF9D79160DFC7400789B16 /* modifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9CD8160DFC7400789B16 /* modifier.cpp */; };
 		2AEF9D7D160DFC7400789B16 /* noisydofmover.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9CDC160DFC7400789B16 /* noisydofmover.cpp */; };
 		2AEF9D7F160DFC7400789B16 /* offsetmodifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF9CDE160DFC7400789B16 /* offsetmodifier.cpp */; };
@@ -198,7 +198,7 @@
 		2AEF9CD0160DFC7400789B16 /* material.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = material.mm; sourceTree = "<group>"; };
 		2AEF9CD2160DFC7400789B16 /* memoryobj.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = memoryobj.cpp; sourceTree = "<group>"; };
 		2AEF9CD4160DFC7400789B16 /* mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mesh.cpp; sourceTree = "<group>"; };
-		2AEF9CD6160DFC7400789B16 /* meshobject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = meshobject.cpp; sourceTree = "<group>"; };
+		2AEF9CD6160DFC7400789B16 /* meshobject.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = meshobject.mm; sourceTree = "<group>"; };
 		2AEF9CD8160DFC7400789B16 /* modifier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = modifier.cpp; sourceTree = "<group>"; };
 		2AEF9CDA160DFC7400789B16 /* naturalinterpolator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = naturalinterpolator.cpp; sourceTree = "<group>"; };
 		2AEF9CDC160DFC7400789B16 /* noisydofmover.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = noisydofmover.cpp; sourceTree = "<group>"; };
@@ -460,7 +460,7 @@
 				2AEF9CD0160DFC7400789B16 /* material.mm */,
 				2AEF9CD2160DFC7400789B16 /* memoryobj.cpp */,
 				2AEF9CD4160DFC7400789B16 /* mesh.cpp */,
-				2AEF9CD6160DFC7400789B16 /* meshobject.cpp */,
+				2AEF9CD6160DFC7400789B16 /* meshobject.mm */,
 				2AEF9CD8160DFC7400789B16 /* modifier.cpp */,
 				2AEF9CDA160DFC7400789B16 /* naturalinterpolator.cpp */,
 				2AEF9CDC160DFC7400789B16 /* noisydofmover.cpp */,
@@ -599,7 +599,7 @@
 				2AEF9D71160DFC7400789B16 /* material.mm in Sources */,
 				2AEF9D73160DFC7400789B16 /* memoryobj.cpp in Sources */,
 				2AEF9D75160DFC7400789B16 /* mesh.cpp in Sources */,
-				2AEF9D77160DFC7400789B16 /* meshobject.cpp in Sources */,
+				2AEF9D77160DFC7400789B16 /* meshobject.mm in Sources */,
 				2AEF9D79160DFC7400789B16 /* modifier.cpp in Sources */,
 				2AEF9D7D160DFC7400789B16 /* noisydofmover.cpp in Sources */,
 				2AEF9D7F160DFC7400789B16 /* offsetmodifier.cpp in Sources */,
