@@ -196,8 +196,6 @@ bool VART::Joint::DrawOGL(float *model) const {
     list<VART::Dof*>::const_iterator dofIter;
     int i = 0;
     GLKMatrix4 _modelViewProjectionMatrix;
-    GLKMatrix3 _normalMatrix;
-    GLKMatrix2 _color;
 
     GLKMatrix4 modelViewMatrix;
     modelViewMatrix.m00 = model[0];
@@ -241,7 +239,6 @@ bool VART::Joint::DrawOGL(float *model) const {
         _modelViewProjectionMatrix = modelViewMatrix;
 
         glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix.m);
-        glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
 
         GetMaterial(i).DrawOGL();
         (*dofIter)->DrawInstanceOGL();
@@ -265,16 +262,15 @@ bool VART::Joint::DrawOGL(float *model) const {
     model[14] = _modelViewProjectionMatrix.m32;
     model[15] = _modelViewProjectionMatrix.m33;
 
-    VART::Material mat = GetMaterial(i);
-    
-    _color.m00 = mat.GetDiffuseColor().GetR()/255.0f;
-    _color.m01 = mat.GetDiffuseColor().GetG()/255.0f;
-    _color.m10 = mat.GetDiffuseColor().GetB()/255.0f;
-    _color.m11 = mat.GetDiffuseColor().GetA()/255.0f;
-    
-    glUniformMatrix2fv(uniforms[UNIFORM_COLOR_MATRIX], 1, 0, _color.m);
+//    VART::Material mat = GetMaterial(i);
+//    
+//    _color.m00 = mat.GetDiffuseColor().GetR()/255.0f;
+//    _color.m01 = mat.GetDiffuseColor().GetG()/255.0f;
+//    _color.m10 = mat.GetDiffuseColor().GetB()/255.0f;
+//    _color.m11 = mat.GetDiffuseColor().GetA()/255.0f;
+//    
+//    glUniformMatrix2fv(uniforms[UNIFORM_COLOR_MATRIX], 1, 0, _color.m);
 
-    
     for (iter = childList.begin(); iter != childList.end(); ++iter)
         result &= (*iter)->DrawOGL(model);
 
@@ -351,7 +347,6 @@ bool VART::Joint::DrawOGL() const
             _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
 
             glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix.m);
-            glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
 
             GetMaterial(i).DrawOGL();
             (*dofIter)->DrawInstanceOGL();

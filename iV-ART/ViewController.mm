@@ -171,46 +171,28 @@ enum
     if (currentTouch.y > self.view.bounds.size.height/2) {
         if (currentTouch.x < self.view.bounds.size.width/2) {
             if (selectDof == 1) {
-                _lastRotation1 = _lastRotation1 + 0.05f;
-                if (_lastRotation1 > 1.0f) {
-                    _lastRotation1 = 1.0f;
-                }
+                dofPtr1->Move(0.05);
             } else if (selectDof == 2) {
-                _lastRotation2 = _lastRotation2 + 0.05f;
-                if (_lastRotation2 > 1.0f) {
-                    _lastRotation2 = 1.0f;
-                }
+                dofPtr2->Move(0.05);
             } else if (selectDof == 3) {
-                _lastRotation3 = _lastRotation3 + 0.05f;
-                if (_lastRotation3 > 1.0f) {
-                    _lastRotation3 = 1.0f;
-                }
+                dofPtr3->Move(0.05);
             }
         } else {
             if (selectDof == 1) {
-                _lastRotation1 = _lastRotation1 - 0.05f;
-                if (_lastRotation1 < 0.0f) {
-                    _lastRotation1 = 0.0f;
-                }
+                dofPtr1->Move(-0.05);
             } else if (selectDof == 2) {
-                _lastRotation2 = _lastRotation2 - 0.05f;
-                if (_lastRotation2 < 0.0f) {
-                    _lastRotation2 = 0.0f;
-                }
+                dofPtr2->Move(-0.05);
             } else if (selectDof == 3) {
-                _lastRotation3 = _lastRotation3 - 0.05f;
-                if (_lastRotation3 < 0.0f) {
-                    _lastRotation3 = 0.0f;
-                }
+                dofPtr3->Move(-0.05);
             }
         }
     } else {
-        if (selectDof == 2) {
-            selectDof = 1;
-        } else if (selectDof == 1) {
+        if (selectDof == 1) {
+            selectDof = 2;
+        } else if (selectDof == 2) {
             selectDof = 3;
         } else if (selectDof == 3) {
-            selectDof = 2;
+            selectDof = 1;
         }
     }
 }
@@ -231,17 +213,13 @@ enum
 
     [self setupGL];
     [self setupScene];
-    [self setupColor];
     [self setPreferredFramesPerSecond:60];
-    _lastRotation1  = 0.4f;
-    _lastRotation2  = 0.4f;
-    _lastRotation3  = 0.4f;
     _cameraRotation = 45.0f;
-    selectDof       = 2;
+    selectDof       = 1;
 }
 
 - (void)viewDidUnload
-{    
+{
     [super viewDidUnload];
 
     [self tearDownGL];
@@ -293,6 +271,21 @@ enum
     }
 }
 
+-(void) performanceTest:(int) objectNumber {
+    VART::MeshObject previousObj;
+    previousObj = arm3;
+    previousObj.AddChild(arm2);
+    
+//    for(int i = 0; i < objectNumber; i++) {
+//        VART::MeshObject obj;
+//        obj.MakeBox(-0.1,0.1, 0,0.5, -0.1,0.1);
+//        obj.SetMaterial(VART::Material::PLASTIC_GREEN());
+//        previousObj.AddChild(obj);
+//
+//        previousObj = obj;
+//    }
+}
+
 -(void) setupScene {
     dofPtr1 = baseJoint.AddDof(Point4D::Y(),Point4D::ORIGIN(), -3.141592654, 3.141592654);
     base.AddChild(baseJoint);
@@ -322,6 +315,17 @@ enum
     arm3.SetMaterial(VART::Material::PLASTIC_GREEN());
     joint23.AddChild(arm3);
     
+//    dofPtr4 = joint34.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+//    arm3.AddChild(joint34);
+    
+//    arm4.MakeBox(-0.1,0.1, 1.5,2.0, -0.1,0.1);
+//    arm4.SetMaterial(VART::Material::PLASTIC_GREEN());
+//    joint34.AddChild(arm4);
+
+    dofPtr1->MoveTo(0.4f);
+    dofPtr2->MoveTo(0.4f);
+    dofPtr3->MoveTo(0.4f);
+
     //TESTES DE PERFORMANCE
     /*
     dofPtr4 = joint34.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
@@ -469,15 +473,6 @@ enum
      */
 }
 
--(void) setupColor {
-    _color.m00 = mat.GetDiffuseColor().GetR()/255.0f;
-    _color.m01 = mat.GetDiffuseColor().GetG()/255.0f;
-    _color.m10 = mat.GetDiffuseColor().GetB()/255.0f;
-    _color.m11 = mat.GetDiffuseColor().GetA()/255.0f;
-
-    glUniformMatrix2fv(uniforms[UNIFORM_COLOR_MATRIX], 1, 0, _color.m);
-}
-
 -(void) setupMatrix {
     aspect = fabsf(self.view.bounds.size.width / self.view.bounds.size.height);
     projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
@@ -528,12 +523,8 @@ enum
     glUseProgram(_program);
 
     glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix.m);
-    glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
+//    glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
     glUniformMatrix2fv(uniforms[UNIFORM_COLOR_MATRIX], 1, 0, _color.m);
-
-    dofPtr1->MoveTo(_lastRotation2);
-    dofPtr2->MoveTo(_lastRotation1);
-    dofPtr3->MoveTo(_lastRotation3);
 
     base.DrawOGL(model);
 }

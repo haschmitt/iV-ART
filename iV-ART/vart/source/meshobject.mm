@@ -13,6 +13,7 @@
 //    #include <OpenGLES/ES2/glext.h>
 //    #include <OpenGLES/ES2/gl.h>
     #import <GLKit/GLKit.h>
+    #import "GlobalVar.h"
 #endif
 
 using namespace std;
@@ -749,27 +750,185 @@ bool VART::MeshObject::DrawInstanceOGL() const {
             if (vertCoordVec.size() > 0)
             { // Optimized structure found - draw it!
                 GLfloat gMeshVertexData[vertCoordVec.size()];
+                GLfloat gMeshVertexAuxiliar[108];
 
                 for (int i = 0; i < vertCoordVec.size(); i++) {
                     gMeshVertexData[i] = static_cast<GLfloat>(vertCoordVec[i]);
                 }
-
+                
                 GLuint _vertexArray;
                 GLuint _vertexBuffer;
+                GLKMatrix2 _color;
 
                 glGenVertexArraysOES(1, &_vertexArray);
                 glBindVertexArrayOES(_vertexArray);
 
+                gMeshVertexAuxiliar[0] = gMeshVertexData[0]; //Ponto 1
+                gMeshVertexAuxiliar[1] = gMeshVertexData[1];
+                gMeshVertexAuxiliar[2] = gMeshVertexData[2];
+                
+                gMeshVertexAuxiliar[3] = gMeshVertexData[3]; //Ponto 2
+                gMeshVertexAuxiliar[4] = gMeshVertexData[4];
+                gMeshVertexAuxiliar[5] = gMeshVertexData[5];
+                
+                gMeshVertexAuxiliar[6] = gMeshVertexData[6]; //Ponto 3
+                gMeshVertexAuxiliar[7] = gMeshVertexData[7];
+                gMeshVertexAuxiliar[8] = gMeshVertexData[8];
+                //
+                gMeshVertexAuxiliar[9]  = gMeshVertexData[0]; //Ponto 1
+                gMeshVertexAuxiliar[10] = gMeshVertexData[1];
+                gMeshVertexAuxiliar[11] = gMeshVertexData[2];
+                
+                gMeshVertexAuxiliar[12] = gMeshVertexData[6]; //Ponto 3
+                gMeshVertexAuxiliar[13] = gMeshVertexData[7];
+                gMeshVertexAuxiliar[14] = gMeshVertexData[8];
+                
+                gMeshVertexAuxiliar[15] = gMeshVertexData[9]; //Ponto 4
+                gMeshVertexAuxiliar[16] = gMeshVertexData[10];
+                gMeshVertexAuxiliar[17] = gMeshVertexData[11];
+                //
+                gMeshVertexAuxiliar[18] = gMeshVertexData[6]; //Ponto 3
+                gMeshVertexAuxiliar[19] = gMeshVertexData[7];
+                gMeshVertexAuxiliar[20] = gMeshVertexData[8];
+                
+                gMeshVertexAuxiliar[21] = gMeshVertexData[9]; //Ponto 4
+                gMeshVertexAuxiliar[22] = gMeshVertexData[10];
+                gMeshVertexAuxiliar[23] = gMeshVertexData[11];
+                
+                gMeshVertexAuxiliar[24] = gMeshVertexData[21]; //Ponto 8
+                gMeshVertexAuxiliar[25] = gMeshVertexData[22];
+                gMeshVertexAuxiliar[26] = gMeshVertexData[23];
+                //
+                gMeshVertexAuxiliar[27] = gMeshVertexData[21]; //Ponto 8
+                gMeshVertexAuxiliar[28] = gMeshVertexData[22];
+                gMeshVertexAuxiliar[29] = gMeshVertexData[23];
+                
+                gMeshVertexAuxiliar[30] = gMeshVertexData[6]; //Ponto 3
+                gMeshVertexAuxiliar[31] = gMeshVertexData[7];
+                gMeshVertexAuxiliar[32] = gMeshVertexData[8];
+                
+                gMeshVertexAuxiliar[33] = gMeshVertexData[18]; //Ponto 7
+                gMeshVertexAuxiliar[34] = gMeshVertexData[19];
+                gMeshVertexAuxiliar[35] = gMeshVertexData[20];
+                //
+                gMeshVertexAuxiliar[36]  = gMeshVertexData[0]; //Ponto 1
+                gMeshVertexAuxiliar[37] = gMeshVertexData[1];
+                gMeshVertexAuxiliar[38] = gMeshVertexData[2];
+                
+                gMeshVertexAuxiliar[39] = gMeshVertexData[9]; //Ponto 4
+                gMeshVertexAuxiliar[40] = gMeshVertexData[10];
+                gMeshVertexAuxiliar[41] = gMeshVertexData[11];
+                
+                gMeshVertexAuxiliar[42] = gMeshVertexData[21]; //Ponto 8
+                gMeshVertexAuxiliar[43] = gMeshVertexData[22];
+                gMeshVertexAuxiliar[44] = gMeshVertexData[23];
+                //
+                gMeshVertexAuxiliar[45] = gMeshVertexData[0]; //Ponto 1
+                gMeshVertexAuxiliar[46] = gMeshVertexData[1];
+                gMeshVertexAuxiliar[47] = gMeshVertexData[2];
+                
+                gMeshVertexAuxiliar[48] = gMeshVertexData[12]; //Ponto 5
+                gMeshVertexAuxiliar[49] = gMeshVertexData[13];
+                gMeshVertexAuxiliar[50] = gMeshVertexData[14];
+                
+                gMeshVertexAuxiliar[51] = gMeshVertexData[21]; //Ponto 8
+                gMeshVertexAuxiliar[52] = gMeshVertexData[22];
+                gMeshVertexAuxiliar[53] = gMeshVertexData[23];
+                //
+                gMeshVertexAuxiliar[54] = gMeshVertexData[0]; //Ponto 1
+                gMeshVertexAuxiliar[55] = gMeshVertexData[1];
+                gMeshVertexAuxiliar[56] = gMeshVertexData[2];
+                
+                gMeshVertexAuxiliar[57] = gMeshVertexData[3]; //Ponto 2
+                gMeshVertexAuxiliar[58] = gMeshVertexData[4];
+                gMeshVertexAuxiliar[59] = gMeshVertexData[5];
+
+                gMeshVertexAuxiliar[60] = gMeshVertexData[12]; //Ponto 5
+                gMeshVertexAuxiliar[61] = gMeshVertexData[13];
+                gMeshVertexAuxiliar[62] = gMeshVertexData[14];
+                //
+                gMeshVertexAuxiliar[63] = gMeshVertexData[3]; //Ponto 2
+                gMeshVertexAuxiliar[64] = gMeshVertexData[4];
+                gMeshVertexAuxiliar[65] = gMeshVertexData[5];
+                
+                gMeshVertexAuxiliar[66] = gMeshVertexData[12]; //Ponto 5
+                gMeshVertexAuxiliar[67] = gMeshVertexData[13];
+                gMeshVertexAuxiliar[68] = gMeshVertexData[14];
+                
+                gMeshVertexAuxiliar[69] = gMeshVertexData[15]; //Ponto 6
+                gMeshVertexAuxiliar[70] = gMeshVertexData[16];
+                gMeshVertexAuxiliar[71] = gMeshVertexData[17];
+                //
+                gMeshVertexAuxiliar[72] = gMeshVertexData[12]; //Ponto 5
+                gMeshVertexAuxiliar[73] = gMeshVertexData[13];
+                gMeshVertexAuxiliar[74] = gMeshVertexData[14];
+                
+                gMeshVertexAuxiliar[75] = gMeshVertexData[15]; //Ponto 6
+                gMeshVertexAuxiliar[76] = gMeshVertexData[16];
+                gMeshVertexAuxiliar[77] = gMeshVertexData[17];
+                
+                gMeshVertexAuxiliar[78] = gMeshVertexData[18]; //Ponto 7
+                gMeshVertexAuxiliar[79] = gMeshVertexData[19];
+                gMeshVertexAuxiliar[80] = gMeshVertexData[20];
+                //
+                gMeshVertexAuxiliar[81] = gMeshVertexData[12]; //Ponto 5
+                gMeshVertexAuxiliar[82] = gMeshVertexData[13];
+                gMeshVertexAuxiliar[83] = gMeshVertexData[14];
+                
+                gMeshVertexAuxiliar[84] = gMeshVertexData[18]; //Ponto 7
+                gMeshVertexAuxiliar[85] = gMeshVertexData[19];
+                gMeshVertexAuxiliar[86] = gMeshVertexData[20];
+                
+                gMeshVertexAuxiliar[87] = gMeshVertexData[21]; //Ponto 8
+                gMeshVertexAuxiliar[88] = gMeshVertexData[22];
+                gMeshVertexAuxiliar[89] = gMeshVertexData[23];
+                //
+                gMeshVertexAuxiliar[90] = gMeshVertexData[3]; //Ponto 2
+                gMeshVertexAuxiliar[91] = gMeshVertexData[4];
+                gMeshVertexAuxiliar[92] = gMeshVertexData[5];
+                
+                gMeshVertexAuxiliar[93] = gMeshVertexData[6]; //Ponto 3
+                gMeshVertexAuxiliar[94] = gMeshVertexData[7];
+                gMeshVertexAuxiliar[95] = gMeshVertexData[8];
+                
+                gMeshVertexAuxiliar[96] = gMeshVertexData[18]; //Ponto 7
+                gMeshVertexAuxiliar[97] = gMeshVertexData[19];
+                gMeshVertexAuxiliar[98] = gMeshVertexData[20];
+                //
+                gMeshVertexAuxiliar[99]  = gMeshVertexData[3]; //Ponto 2
+                gMeshVertexAuxiliar[100] = gMeshVertexData[4];
+                gMeshVertexAuxiliar[101] = gMeshVertexData[5];
+                
+                gMeshVertexAuxiliar[102]  = gMeshVertexData[15]; //Ponto 6
+                gMeshVertexAuxiliar[103]  = gMeshVertexData[16];
+                gMeshVertexAuxiliar[104]  = gMeshVertexData[17];
+                
+                gMeshVertexAuxiliar[105]  = gMeshVertexData[18]; //Ponto 7
+                gMeshVertexAuxiliar[106]  = gMeshVertexData[19];
+                gMeshVertexAuxiliar[107]  = gMeshVertexData[20];
+                //
                 glGenBuffers(1, &_vertexBuffer);
                 glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
-                glBufferData(GL_ARRAY_BUFFER, sizeof(gMeshVertexData), gMeshVertexData, GL_STATIC_DRAW);
+                glBufferData(GL_ARRAY_BUFFER, sizeof(gMeshVertexAuxiliar), gMeshVertexAuxiliar, GL_STATIC_DRAW);
 
                 glEnableVertexAttribArray(0);
                 glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
-                glDrawArrays(GL_LINES, 0, sizeof(gMeshVertexData));
-                glBindVertexArrayOES(0);
+                VART::Material mat;
                 
+                list<VART::Mesh>::const_iterator iter;
+                for (iter = meshList.begin(); iter != meshList.end(); ++iter)
+                    mat = iter->material;
+
+                _color.m00 = mat.GetDiffuseColor().GetR()/255.0f;
+                _color.m01 = mat.GetDiffuseColor().GetG()/255.0f;
+                _color.m10 = mat.GetDiffuseColor().GetB()/255.0f;
+                _color.m11 = mat.GetDiffuseColor().GetA()/255.0f;
+                
+                glUniformMatrix2fv(uniforms[UNIFORM_COLOR_MATRIX], 1, 0, _color.m);
+                
+                glDrawArrays(GL_TRIANGLES, 0, 36);
+
                 glDeleteBuffers(1, &_vertexBuffer);
                 glDeleteVertexArraysOES(1, &_vertexArray);
             }

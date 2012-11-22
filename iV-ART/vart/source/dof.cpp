@@ -450,7 +450,7 @@ bool VART::Dof::DrawInstanceOGL() const
             //desenha
             GLuint _vertexArray;
             GLuint _vertexBuffer;
-            
+
             glGenVertexArraysOES(1, &_vertexArray);
             glBindVertexArrayOES(_vertexArray);
 
