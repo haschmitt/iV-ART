@@ -723,9 +723,9 @@
 					MACOSX,
 					__linux__,
 					_DEBUG,
-					VISUAL_JOINTS,
 					not__IL_LIB,
 					VART_OGL_IOS,
+					VISUAL_JOINTS,
 				);
 				HEADER_SEARCH_PATHS = (
 					../,

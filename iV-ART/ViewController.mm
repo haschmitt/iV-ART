@@ -27,6 +27,8 @@ enum
 };
 
 @interface ViewController () {
+    
+    CGPoint firstTouch;
     GLuint _program;
         
     GLKMatrix4 _modelViewProjectionMatrix;
@@ -50,96 +52,102 @@ enum
 
     VART::MeshObject base;
     VART::Material mat;
+    
+    //DOFs
     VART::Dof* dofPtr1;
     VART::Dof* dofPtr2;
     VART::Dof* dofPtr3;
-    VART::Dof* dofPtr4;
-    VART::Dof* dofPtr5;
-    VART::Dof* dofPtr6;
-    VART::Dof* dofPtr7;
-    VART::Dof* dofPtr8;
-    VART::Dof* dofPtr9;
-    VART::Dof* dofPtr10;
-    VART::Dof* dofPtr11;
-    VART::Dof* dofPtr12;
-    VART::Dof* dofPtr13;
-    VART::Dof* dofPtr14;
-    VART::Dof* dofPtr15;
-    VART::Dof* dofPtr16;
-    VART::Dof* dofPtr17;
-    VART::Dof* dofPtr18;
-    VART::Dof* dofPtr19;
-    VART::Dof* dofPtr20;
-    VART::Dof* dofPtr21;
-    VART::Dof* dofPtr22;
-    VART::Dof* dofPtr23;
-    VART::Dof* dofPtr24;
-    VART::Dof* dofPtr25;
-    VART::Dof* dofPtr26;
-    VART::Dof* dofPtr27;
-    VART::Dof* dofPtr28;
-    VART::Dof* dofPtr29;
-    VART::Dof* dofPtr30;
+//    VART::Dof* dofPtr4;
+//    VART::Dof* dofPtr5;
+//    VART::Dof* dofPtr6;
+//    VART::Dof* dofPtr7;
+//    VART::Dof* dofPtr8;
+//    VART::Dof* dofPtr9;
+//    VART::Dof* dofPtr10;
+//    VART::Dof* dofPtr11;
+//    VART::Dof* dofPtr12;
+//    VART::Dof* dofPtr13;
+//    VART::Dof* dofPtr14;
+//    VART::Dof* dofPtr15;
+//    VART::Dof* dofPtr16;
+//    VART::Dof* dofPtr17;
+//    VART::Dof* dofPtr18;
+//    VART::Dof* dofPtr19;
+//    VART::Dof* dofPtr20;
+//    VART::Dof* dofPtr21;
+//    VART::Dof* dofPtr22;
+//    VART::Dof* dofPtr23;
+//    VART::Dof* dofPtr24;
+//    VART::Dof* dofPtr25;
+//    VART::Dof* dofPtr26;
+//    VART::Dof* dofPtr27;
+//    VART::Dof* dofPtr28;
+//    VART::Dof* dofPtr29;
+//    VART::Dof* dofPtr30;
+    
+    //ARMs
     VART::MeshObject arm1;
     VART::MeshObject arm2;
     VART::MeshObject arm3;
-    VART::MeshObject arm4;
-    VART::MeshObject arm5;
-    VART::MeshObject arm6;
-    VART::MeshObject arm7;
-    VART::MeshObject arm8;
-    VART::MeshObject arm9;
-    VART::MeshObject arm10;
-    VART::MeshObject arm11;
-    VART::MeshObject arm12;
-    VART::MeshObject arm13;
-    VART::MeshObject arm14;
-    VART::MeshObject arm15;
-    VART::MeshObject arm16;
-    VART::MeshObject arm17;
-    VART::MeshObject arm18;
-    VART::MeshObject arm19;
-    VART::MeshObject arm20;
-    VART::MeshObject arm21;
-    VART::MeshObject arm22;
-    VART::MeshObject arm23;
-    VART::MeshObject arm24;
-    VART::MeshObject arm25;
-    VART::MeshObject arm26;
-    VART::MeshObject arm27;
-    VART::MeshObject arm28;
-    VART::MeshObject arm29;
-    VART::MeshObject arm30;
+//    VART::MeshObject arm4;
+//    VART::MeshObject arm5;
+//    VART::MeshObject arm6;
+//    VART::MeshObject arm7;
+//    VART::MeshObject arm8;
+//    VART::MeshObject arm9;
+//    VART::MeshObject arm10;
+//    VART::MeshObject arm11;
+//    VART::MeshObject arm12;
+//    VART::MeshObject arm13;
+//    VART::MeshObject arm14;
+//    VART::MeshObject arm15;
+//    VART::MeshObject arm16;
+//    VART::MeshObject arm17;
+//    VART::MeshObject arm18;
+//    VART::MeshObject arm19;
+//    VART::MeshObject arm20;
+//    VART::MeshObject arm21;
+//    VART::MeshObject arm22;
+//    VART::MeshObject arm23;
+//    VART::MeshObject arm24;
+//    VART::MeshObject arm25;
+//    VART::MeshObject arm26;
+//    VART::MeshObject arm27;
+//    VART::MeshObject arm28;
+//    VART::MeshObject arm29;
+//    VART::MeshObject arm30;
+    
+    //JOINTs
     VART::UniaxialJoint baseJoint;
     VART::UniaxialJoint joint12;
     VART::UniaxialJoint joint23;
-    VART::UniaxialJoint joint34;
-    VART::UniaxialJoint joint45;
-    VART::UniaxialJoint joint56;
-    VART::UniaxialJoint joint67;
-    VART::UniaxialJoint joint78;
-    VART::UniaxialJoint joint89;
-    VART::UniaxialJoint joint910;
-    VART::UniaxialJoint joint1011;
-    VART::UniaxialJoint joint1112;
-    VART::UniaxialJoint joint1213;
-    VART::UniaxialJoint joint1314;
-    VART::UniaxialJoint joint1415;
-    VART::UniaxialJoint joint1516;
-    VART::UniaxialJoint joint1617;
-    VART::UniaxialJoint joint1718;
-    VART::UniaxialJoint joint1819;
-    VART::UniaxialJoint joint1920;
-    VART::UniaxialJoint joint2021;
-    VART::UniaxialJoint joint2122;
-    VART::UniaxialJoint joint2223;
-    VART::UniaxialJoint joint2324;
-    VART::UniaxialJoint joint2425;
-    VART::UniaxialJoint joint2526;
-    VART::UniaxialJoint joint2627;
-    VART::UniaxialJoint joint2728;
-    VART::UniaxialJoint joint2829;
-    VART::UniaxialJoint joint2930;
+//    VART::UniaxialJoint joint34;
+//    VART::UniaxialJoint joint45;
+//    VART::UniaxialJoint joint56;
+//    VART::UniaxialJoint joint67;
+//    VART::UniaxialJoint joint78;
+//    VART::UniaxialJoint joint89;
+//    VART::UniaxialJoint joint910;
+//    VART::UniaxialJoint joint1011;
+//    VART::UniaxialJoint joint1112;
+//    VART::UniaxialJoint joint1213;
+//    VART::UniaxialJoint joint1314;
+//    VART::UniaxialJoint joint1415;
+//    VART::UniaxialJoint joint1516;
+//    VART::UniaxialJoint joint1617;
+//    VART::UniaxialJoint joint1718;
+//    VART::UniaxialJoint joint1819;
+//    VART::UniaxialJoint joint1920;
+//    VART::UniaxialJoint joint2021;
+//    VART::UniaxialJoint joint2122;
+//    VART::UniaxialJoint joint2223;
+//    VART::UniaxialJoint joint2324;
+//    VART::UniaxialJoint joint2425;
+//    VART::UniaxialJoint joint2526;
+//    VART::UniaxialJoint joint2627;
+//    VART::UniaxialJoint joint2728;
+//    VART::UniaxialJoint joint2829;
+//    VART::UniaxialJoint joint2930;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -157,42 +165,50 @@ enum
 
 @implementation ViewController
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    NSSet *allTouches = [event allTouches];
-    UITouch *touch = [[UITouch alloc] init];
-    CGPoint currentTouch;
+-(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    UITouch *aTouch = [touches anyObject];
+    firstTouch = [aTouch locationInView: self.view];
+}
 
-    for (int nTouch = 0;  nTouch < [allTouches count];  nTouch++)
-    {
-        touch = [[allTouches allObjects] objectAtIndex:nTouch];
-        currentTouch = [touch locationInView:[touch view]];
-    }
+-(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *aTouch = [touches anyObject];
+    CGPoint location = [aTouch locationInView:self.view];
+    CGPoint previousLocation = [aTouch previousLocationInView:self.view];
 
-    if (currentTouch.y > self.view.bounds.size.height/2) {
-        if (currentTouch.x < self.view.bounds.size.width/2) {
-            if (selectDof == 1) {
-                dofPtr1->Move(0.05);
-            } else if (selectDof == 2) {
-                dofPtr2->Move(0.05);
-            } else if (selectDof == 3) {
-                dofPtr3->Move(0.05);
+    _cameraRotation += (location.x - previousLocation.x);
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *aTouch = [touches anyObject];
+    CGPoint currentTouch = [aTouch locationInView: self.view];
+    
+    if (abs(currentTouch.x - firstTouch.x) < 10.0f) {
+        if (currentTouch.y > self.view.bounds.size.height/2) {
+            if (currentTouch.x < self.view.bounds.size.width/2) {
+                if (selectDof == 1) {
+                    dofPtr1->Move(0.05);
+                } else if (selectDof == 2) {
+                    dofPtr2->Move(0.05);
+                } else if (selectDof == 3) {
+                    dofPtr3->Move(0.05);
+                }
+            } else {
+                if (selectDof == 1) {
+                    dofPtr1->Move(-0.05);
+                } else if (selectDof == 2) {
+                    dofPtr2->Move(-0.05);
+                } else if (selectDof == 3) {
+                    dofPtr3->Move(-0.05);
+                }
             }
         } else {
             if (selectDof == 1) {
-                dofPtr1->Move(-0.05);
+                selectDof = 2;
             } else if (selectDof == 2) {
-                dofPtr2->Move(-0.05);
+                selectDof = 3;
             } else if (selectDof == 3) {
-                dofPtr3->Move(-0.05);
+                selectDof = 1;
             }
-        }
-    } else {
-        if (selectDof == 1) {
-            selectDof = 2;
-        } else if (selectDof == 2) {
-            selectDof = 3;
-        } else if (selectDof == 3) {
-            selectDof = 1;
         }
     }
 }
@@ -213,8 +229,8 @@ enum
 
     [self setupGL];
     [self setupScene];
-    [self setPreferredFramesPerSecond:60];
-    _cameraRotation = 45.0f;
+    [self setPreferredFramesPerSecond:30];
+    _cameraRotation = 0.0f;
     selectDof       = 1;
 }
 
@@ -271,21 +287,6 @@ enum
     }
 }
 
--(void) performanceTest:(int) objectNumber {
-    VART::MeshObject previousObj;
-    previousObj = arm3;
-    previousObj.AddChild(arm2);
-    
-//    for(int i = 0; i < objectNumber; i++) {
-//        VART::MeshObject obj;
-//        obj.MakeBox(-0.1,0.1, 0,0.5, -0.1,0.1);
-//        obj.SetMaterial(VART::Material::PLASTIC_GREEN());
-//        previousObj.AddChild(obj);
-//
-//        previousObj = obj;
-//    }
-}
-
 -(void) setupScene {
     dofPtr1 = baseJoint.AddDof(Point4D::Y(),Point4D::ORIGIN(), -3.141592654, 3.141592654);
     base.AddChild(baseJoint);
@@ -315,162 +316,153 @@ enum
     arm3.SetMaterial(VART::Material::PLASTIC_GREEN());
     joint23.AddChild(arm3);
     
-//    dofPtr4 = joint34.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-//    arm3.AddChild(joint34);
-    
-//    arm4.MakeBox(-0.1,0.1, 1.5,2.0, -0.1,0.1);
-//    arm4.SetMaterial(VART::Material::PLASTIC_GREEN());
-//    joint34.AddChild(arm4);
-
     dofPtr1->MoveTo(0.4f);
     dofPtr2->MoveTo(0.4f);
     dofPtr3->MoveTo(0.4f);
 
     //TESTES DE PERFORMANCE
-    /*
-    dofPtr4 = joint34.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    arm3.AddChild(joint34);
     
-    arm4.MakeBox(-0.1,0.1, 1.5,2.0, -0.1,0.1);
-    arm4.SetMaterial(VART::Material::PLASTIC_GREEN());
-    joint34.AddChild(arm4);
+//    dofPtr4 = joint34.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+//    arm3.AddChild(joint34);
+//
+//    arm4.MakeBox(-0.1,0.1, 1.5,2.0, -0.1,0.1);
+//    arm4.SetMaterial(VART::Material::PLASTIC_GREEN());
+//    joint34.AddChild(arm4);
+//
+//    dofPtr5 = joint45.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+//    dofPtr6 = joint56.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+//    dofPtr7 = joint67.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+//    dofPtr8 = joint78.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+//    dofPtr9 = joint89.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+//    dofPtr10 = joint910.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+//    dofPtr11 = joint1011.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+//    dofPtr12 = joint1112.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+//    dofPtr13 = joint1213.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+//    dofPtr14 = joint1314.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+//    dofPtr15 = joint1415.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+//    dofPtr16 = joint1516.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+//    dofPtr17 = joint1617.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+//    dofPtr18 = joint1718.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+//    dofPtr19 = joint1819.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+//    dofPtr20 = joint1920.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+//    dofPtr21 = joint2021.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+//    dofPtr22 = joint2122.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+//    dofPtr23 = joint2223.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+//    dofPtr24 = joint2324.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+//    dofPtr25 = joint2425.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+//    dofPtr26 = joint2526.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+//    dofPtr27 = joint2627.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+//    dofPtr28 = joint2728.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+//    dofPtr29 = joint2829.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+//    dofPtr30 = joint2930.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
     
-    arm5.MakeBox(-0.1,0.1, 2,2.5, -0.1,0.1);
-    arm6.MakeBox(-0.1,0.1, 2.5,3, -0.1,0.1);
-    arm7.MakeBox(-0.1,0.1, 3,3.5, -0.1,0.1);
-    arm8.MakeBox(-0.1,0.1, 3.5,4, -0.1,0.1);
-    arm9.MakeBox(-0.1,0.1, 4,4.5, -0.1,0.1);
-    arm10.MakeBox(-0.1,0.1, 4.5,5, -0.1,0.1);
-    arm11.MakeBox(-0.1,0.1, 5,5.5, -0.1,0.1);
-    arm12.MakeBox(-0.1,0.1, 5.5,6, -0.1,0.1);
-    arm13.MakeBox(-0.1,0.1, 6,6.5, -0.1,0.1);
-    arm14.MakeBox(-0.1,0.1, 6.5,7, -0.1,0.1);
-    arm15.MakeBox(-0.1,0.1, 7,7.5, -0.1,0.1);
-    arm16.MakeBox(-0.1,0.1, 7.5,8, -0.1,0.1);
-    arm17.MakeBox(-0.1,0.1, 8,8.5, -0.1,0.1);
-    arm18.MakeBox(-0.1,0.1, 8.5,9, -0.1,0.1);
-    arm19.MakeBox(-0.1,0.1, 9,9.5, -0.1,0.1);
-    arm20.MakeBox(-0.1,0.1, 9.5,10, -0.1,0.1);
-    arm21.MakeBox(-0.1,0.1, 10,10.5, -0.1,0.1);
-    arm22.MakeBox(-0.1,0.1, 10.5,11, -0.1,0.1);
-    arm23.MakeBox(-0.1,0.1, 11,11.5, -0.1,0.1);
-    arm24.MakeBox(-0.1,0.1, 11.5,12, -0.1,0.1);
-    arm25.MakeBox(-0.1,0.1, 12,12.5, -0.1,0.1);
-    arm26.MakeBox(-0.1,0.1, 12.5,13, -0.1,0.1);
-    arm27.MakeBox(-0.1,0.1, 13,13.5, -0.1,0.1);
-    arm28.MakeBox(-0.1,0.1, 13.5,14, -0.1,0.1);
-    arm29.MakeBox(-0.1,0.1, 14,14.5, -0.1,0.1);
-    arm30.MakeBox(-0.1,0.1, 14.5,15, -0.1,0.1);
+//    arm4.AddChild(joint45);
+//    arm5.AddChild(joint56);
+//    arm6.AddChild(joint67);
+//    arm7.AddChild(joint78);
+//    arm8.AddChild(joint89);
+//    arm9.AddChild(joint910);
+//    arm10.AddChild(joint1011);
+//    arm11.AddChild(joint1112);
+//    arm12.AddChild(joint1213);
+//    arm13.AddChild(joint1314);
+//    arm14.AddChild(joint1415);
+//    arm15.AddChild(joint1516);
+//    arm16.AddChild(joint1617);
+//    arm17.AddChild(joint1718);
+//    arm18.AddChild(joint1819);
+//    arm19.AddChild(joint1920);
+//    arm20.AddChild(joint2021);
+//    arm21.AddChild(joint2122);
+//    arm22.AddChild(joint2223);
+//    arm23.AddChild(joint2324);
+//    arm24.AddChild(joint2425);
+//    arm25.AddChild(joint2526);
+//    arm26.AddChild(joint2627);
+//    arm27.AddChild(joint2728);
+//    arm28.AddChild(joint2829);
+//    arm29.AddChild(joint2930);
     
+//    arm5.MakeBox(-0.1,0.1, 2,2.5, -0.1,0.1);
+//    arm6.MakeBox(-0.1,0.1, 2.5,3, -0.1,0.1);
+//    arm7.MakeBox(-0.1,0.1, 3,3.5, -0.1,0.1);
+//    arm8.MakeBox(-0.1,0.1, 3.5,4, -0.1,0.1);
+//    arm9.MakeBox(-0.1,0.1, 4,4.5, -0.1,0.1);
+//    arm10.MakeBox(-0.1,0.1, 4.5,5, -0.1,0.1);
+//    arm11.MakeBox(-0.1,0.1, 5,5.5, -0.1,0.1);
+//    arm12.MakeBox(-0.1,0.1, 5.5,6, -0.1,0.1);
+//    arm13.MakeBox(-0.1,0.1, 6,6.5, -0.1,0.1);
+//    arm14.MakeBox(-0.1,0.1, 6.5,7, -0.1,0.1);
+//    arm15.MakeBox(-0.1,0.1, 7,7.5, -0.1,0.1);
+//    arm16.MakeBox(-0.1,0.1, 7.5,8, -0.1,0.1);
+//    arm17.MakeBox(-0.1,0.1, 8,8.5, -0.1,0.1);
+//    arm18.MakeBox(-0.1,0.1, 8.5,9, -0.1,0.1);
+//    arm19.MakeBox(-0.1,0.1, 9,9.5, -0.1,0.1);
+//    arm20.MakeBox(-0.1,0.1, 9.5,10, -0.1,0.1);
+//    arm21.MakeBox(-0.1,0.1, 10,10.5, -0.1,0.1);
+//    arm22.MakeBox(-0.1,0.1, 10.5,11, -0.1,0.1);
+//    arm23.MakeBox(-0.1,0.1, 11,11.5, -0.1,0.1);
+//    arm24.MakeBox(-0.1,0.1, 11.5,12, -0.1,0.1);
+//    arm25.MakeBox(-0.1,0.1, 12,12.5, -0.1,0.1);
+//    arm26.MakeBox(-0.1,0.1, 12.5,13, -0.1,0.1);
+//    arm27.MakeBox(-0.1,0.1, 13,13.5, -0.1,0.1);
+//    arm28.MakeBox(-0.1,0.1, 13.5,14, -0.1,0.1);
+//    arm29.MakeBox(-0.1,0.1, 14,14.5, -0.1,0.1);
+//    arm30.MakeBox(-0.1,0.1, 14.5,15, -0.1,0.1);
+
+//    arm5.SetMaterial(VART::Material::PLASTIC_GREEN());
+//    arm6.SetMaterial(VART::Material::PLASTIC_GREEN());
+//    arm7.SetMaterial(VART::Material::PLASTIC_GREEN());
+//    arm8.SetMaterial(VART::Material::PLASTIC_GREEN());
+//    arm9.SetMaterial(VART::Material::PLASTIC_GREEN());
+//    arm10.SetMaterial(VART::Material::PLASTIC_GREEN());
+//    arm11.SetMaterial(VART::Material::PLASTIC_GREEN());
+//    arm12.SetMaterial(VART::Material::PLASTIC_GREEN());
+//    arm13.SetMaterial(VART::Material::PLASTIC_GREEN());
+//    arm14.SetMaterial(VART::Material::PLASTIC_GREEN());
+//    arm15.SetMaterial(VART::Material::PLASTIC_GREEN());
+//    arm16.SetMaterial(VART::Material::PLASTIC_GREEN());
+//    arm17.SetMaterial(VART::Material::PLASTIC_GREEN());
+//    arm18.SetMaterial(VART::Material::PLASTIC_GREEN());
+//    arm19.SetMaterial(VART::Material::PLASTIC_GREEN());
+//    arm20.SetMaterial(VART::Material::PLASTIC_GREEN());
+//    arm21.SetMaterial(VART::Material::PLASTIC_GREEN());
+//    arm22.SetMaterial(VART::Material::PLASTIC_GREEN());
+//    arm23.SetMaterial(VART::Material::PLASTIC_GREEN());
+//    arm24.SetMaterial(VART::Material::PLASTIC_GREEN());
+//    arm25.SetMaterial(VART::Material::PLASTIC_GREEN());
+//    arm26.SetMaterial(VART::Material::PLASTIC_GREEN());
+//    arm27.SetMaterial(VART::Material::PLASTIC_GREEN());
+//    arm28.SetMaterial(VART::Material::PLASTIC_GREEN());
+//    arm29.SetMaterial(VART::Material::PLASTIC_GREEN());
+//    arm30.SetMaterial(VART::Material::PLASTIC_GREEN());
     
-    arm5.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm6.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm7.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm8.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm9.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm10.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm11.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm12.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm13.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm14.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm15.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm16.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm17.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm18.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm19.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm20.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm21.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm22.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm23.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm24.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm25.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm26.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm27.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm28.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm29.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm30.SetMaterial(VART::Material::PLASTIC_GREEN());
-    
-    dofPtr5 = joint45.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr6 = joint56.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr7 = joint67.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr8 = joint78.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr9 = joint89.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr10 = joint910.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr11 = joint1011.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr12 = joint1112.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr13 = joint1213.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr14 = joint1314.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr15 = joint1415.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr16 = joint1516.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr17 = joint1617.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr18 = joint1718.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr19 = joint1819.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr20 = joint1920.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr21 = joint2021.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr22 = joint2122.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr23 = joint2223.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr24 = joint2324.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr25 = joint2425.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr26 = joint2526.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr27 = joint2627.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr28 = joint2728.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr29 = joint2829.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr30 = joint2930.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    
-    arm4.AddChild(joint45);
-    arm5.AddChild(joint56);
-    arm6.AddChild(joint67);
-    arm7.AddChild(joint78);
-    arm8.AddChild(joint89);
-    arm9.AddChild(joint910);
-    arm10.AddChild(joint1011);
-    arm11.AddChild(joint1112);
-    arm12.AddChild(joint1213);
-    arm13.AddChild(joint1314);
-    arm14.AddChild(joint1415);
-    arm15.AddChild(joint1516);
-    arm16.AddChild(joint1617);
-    arm17.AddChild(joint1718);
-    arm18.AddChild(joint1819);
-    arm19.AddChild(joint1920);
-    arm20.AddChild(joint2021);
-    arm21.AddChild(joint2122);
-    arm22.AddChild(joint2223);
-    arm23.AddChild(joint2324);
-    arm24.AddChild(joint2425);
-    arm25.AddChild(joint2526);
-    arm26.AddChild(joint2627);
-    arm27.AddChild(joint2728);
-    arm28.AddChild(joint2829);
-    arm29.AddChild(joint2930);
-    
-    joint45.AddChild(arm5);
-    joint56.AddChild(arm6);
-    joint67.AddChild(arm7);
-    joint78.AddChild(arm8);
-    joint89.AddChild(arm9);
-    joint910.AddChild(arm10);
-    joint1011.AddChild(arm11);
-    joint1112.AddChild(arm12);
-    joint1213.AddChild(arm13);
-    joint1314.AddChild(arm14);
-    joint1415.AddChild(arm15);
-    joint1516.AddChild(arm16);
-    joint1617.AddChild(arm17);
-    joint1718.AddChild(arm18);
-    joint1819.AddChild(arm19);
-    joint1920.AddChild(arm20);
-    joint2021.AddChild(arm21);
-    joint2122.AddChild(arm22);
-    joint2223.AddChild(arm23);
-    joint2324.AddChild(arm24);
-    joint2425.AddChild(arm25);
-    joint2526.AddChild(arm26);
-    joint2627.AddChild(arm27);
-    joint2728.AddChild(arm28);
-    joint2829.AddChild(arm29);
-    joint2930.AddChild(arm30);
-     */
+//    joint45.AddChild(arm5);
+//    joint56.AddChild(arm6);
+//    joint67.AddChild(arm7);
+//    joint78.AddChild(arm8);
+//    joint89.AddChild(arm9);
+//    joint910.AddChild(arm10);
+//    joint1011.AddChild(arm11);
+//    joint1112.AddChild(arm12);
+//    joint1213.AddChild(arm13);
+//    joint1314.AddChild(arm14);
+//    joint1415.AddChild(arm15);
+//    joint1516.AddChild(arm16);
+//    joint1617.AddChild(arm17);
+//    joint1718.AddChild(arm18);
+//    joint1819.AddChild(arm19);
+//    joint1920.AddChild(arm20);
+//    joint2021.AddChild(arm21);
+//    joint2122.AddChild(arm22);
+//    joint2223.AddChild(arm23);
+//    joint2324.AddChild(arm24);
+//    joint2425.AddChild(arm25);
+//    joint2526.AddChild(arm26);
+//    joint2627.AddChild(arm27);
+//    joint2728.AddChild(arm28);
+//    joint2829.AddChild(arm29);
+//    joint2930.AddChild(arm30);
 }
 
 -(void) setupMatrix {
@@ -523,10 +515,39 @@ enum
     glUseProgram(_program);
 
     glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix.m);
-//    glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
     glUniformMatrix2fv(uniforms[UNIFORM_COLOR_MATRIX], 1, 0, _color.m);
 
     base.DrawOGL(model);
+//    arm1.DrawOGL(model);
+//    arm2.DrawOGL(model);
+//    arm3.DrawOGL(model);
+//    arm4.DrawOGL(model);
+//    arm5.DrawOGL(model);
+//    arm6.DrawOGL(model);
+//    arm7.DrawOGL(model);
+//    arm8.DrawOGL(model);
+//    arm9.DrawOGL(model);
+//    arm10.DrawOGL(model);
+//    arm11.DrawOGL(model);
+//    arm12.DrawOGL(model);
+//    arm13.DrawOGL(model);
+//    arm14.DrawOGL(model);
+//    arm15.DrawOGL(model);
+//    arm16.DrawOGL(model);
+//    arm17.DrawOGL(model);
+//    arm18.DrawOGL(model);
+//    arm19.DrawOGL(model);
+//    arm20.DrawOGL(model);
+//    arm21.DrawOGL(model);
+//    arm22.DrawOGL(model);
+//    arm23.DrawOGL(model);
+//    arm24.DrawOGL(model);
+//    arm25.DrawOGL(model);
+//    arm26.DrawOGL(model);
+//    arm27.DrawOGL(model);
+//    arm28.DrawOGL(model);
+//    arm29.DrawOGL(model);
+//    arm30.DrawOGL(model);
 }
 
 #pragma mark -  OpenGL ES 2 shader compilation
