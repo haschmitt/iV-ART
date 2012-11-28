@@ -751,6 +751,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					MACOSX,
 					__linux__,
+					VISUAL_JOINTS,
 				);
 				HEADER_SEARCH_PATHS = (
 					../,

@@ -466,6 +466,9 @@ bool VART::Dof::DrawInstanceOGL() const
 
             vertexVector[0] = vertexVector[3];
             vertexVector[1] = vertexVector[2];
+
+            glDeleteBuffers(1, &_vertexBuffer);
+            glDeleteVertexArraysOES(1, &_vertexArray);
         }
 
         return true;

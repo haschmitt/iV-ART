@@ -57,13 +57,13 @@ enum
     VART::Dof* dofPtr1;
     VART::Dof* dofPtr2;
     VART::Dof* dofPtr3;
-//    VART::Dof* dofPtr4;
-//    VART::Dof* dofPtr5;
-//    VART::Dof* dofPtr6;
-//    VART::Dof* dofPtr7;
-//    VART::Dof* dofPtr8;
-//    VART::Dof* dofPtr9;
-//    VART::Dof* dofPtr10;
+    VART::Dof* dofPtr4;
+    VART::Dof* dofPtr5;
+    VART::Dof* dofPtr6;
+    VART::Dof* dofPtr7;
+    VART::Dof* dofPtr8;
+    VART::Dof* dofPtr9;
+    VART::Dof* dofPtr10;
 //    VART::Dof* dofPtr11;
 //    VART::Dof* dofPtr12;
 //    VART::Dof* dofPtr13;
@@ -84,18 +84,18 @@ enum
 //    VART::Dof* dofPtr28;
 //    VART::Dof* dofPtr29;
 //    VART::Dof* dofPtr30;
-    
+
     //ARMs
     VART::MeshObject arm1;
     VART::MeshObject arm2;
     VART::MeshObject arm3;
-//    VART::MeshObject arm4;
-//    VART::MeshObject arm5;
-//    VART::MeshObject arm6;
-//    VART::MeshObject arm7;
-//    VART::MeshObject arm8;
-//    VART::MeshObject arm9;
-//    VART::MeshObject arm10;
+    VART::MeshObject arm4;
+    VART::MeshObject arm5;
+    VART::MeshObject arm6;
+    VART::MeshObject arm7;
+    VART::MeshObject arm8;
+    VART::MeshObject arm9;
+    VART::MeshObject arm10;
 //    VART::MeshObject arm11;
 //    VART::MeshObject arm12;
 //    VART::MeshObject arm13;
@@ -121,13 +121,13 @@ enum
     VART::UniaxialJoint baseJoint;
     VART::UniaxialJoint joint12;
     VART::UniaxialJoint joint23;
-//    VART::UniaxialJoint joint34;
-//    VART::UniaxialJoint joint45;
-//    VART::UniaxialJoint joint56;
-//    VART::UniaxialJoint joint67;
-//    VART::UniaxialJoint joint78;
-//    VART::UniaxialJoint joint89;
-//    VART::UniaxialJoint joint910;
+    VART::UniaxialJoint joint34;
+    VART::UniaxialJoint joint45;
+    VART::UniaxialJoint joint56;
+    VART::UniaxialJoint joint67;
+    VART::UniaxialJoint joint78;
+    VART::UniaxialJoint joint89;
+    VART::UniaxialJoint joint910;
 //    VART::UniaxialJoint joint1011;
 //    VART::UniaxialJoint joint1112;
 //    VART::UniaxialJoint joint1213;
@@ -322,19 +322,19 @@ enum
 
     //TESTES DE PERFORMANCE
     
-//    dofPtr4 = joint34.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-//    arm3.AddChild(joint34);
-//
-//    arm4.MakeBox(-0.1,0.1, 1.5,2.0, -0.1,0.1);
-//    arm4.SetMaterial(VART::Material::PLASTIC_GREEN());
-//    joint34.AddChild(arm4);
-//
-//    dofPtr5 = joint45.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-//    dofPtr6 = joint56.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-//    dofPtr7 = joint67.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-//    dofPtr8 = joint78.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-//    dofPtr9 = joint89.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-//    dofPtr10 = joint910.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+    dofPtr4 = joint34.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+    arm3.AddChild(joint34);
+
+    arm4.MakeBox(-0.1,0.1, 1.5,2.0, -0.1,0.1);
+    arm4.SetMaterial(VART::Material::PLASTIC_GREEN());
+    joint34.AddChild(arm4);
+
+    dofPtr5 = joint45.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+    dofPtr6 = joint56.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+    dofPtr7 = joint67.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+    dofPtr8 = joint78.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+    dofPtr9 = joint89.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+    dofPtr10 = joint910.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
 //    dofPtr11 = joint1011.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
 //    dofPtr12 = joint1112.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
 //    dofPtr13 = joint1213.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
@@ -356,12 +356,12 @@ enum
 //    dofPtr29 = joint2829.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
 //    dofPtr30 = joint2930.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
     
-//    arm4.AddChild(joint45);
-//    arm5.AddChild(joint56);
-//    arm6.AddChild(joint67);
-//    arm7.AddChild(joint78);
-//    arm8.AddChild(joint89);
-//    arm9.AddChild(joint910);
+    arm4.AddChild(joint45);
+    arm5.AddChild(joint56);
+    arm6.AddChild(joint67);
+    arm7.AddChild(joint78);
+    arm8.AddChild(joint89);
+    arm9.AddChild(joint910);
 //    arm10.AddChild(joint1011);
 //    arm11.AddChild(joint1112);
 //    arm12.AddChild(joint1213);
@@ -383,12 +383,12 @@ enum
 //    arm28.AddChild(joint2829);
 //    arm29.AddChild(joint2930);
     
-//    arm5.MakeBox(-0.1,0.1, 2,2.5, -0.1,0.1);
-//    arm6.MakeBox(-0.1,0.1, 2.5,3, -0.1,0.1);
-//    arm7.MakeBox(-0.1,0.1, 3,3.5, -0.1,0.1);
-//    arm8.MakeBox(-0.1,0.1, 3.5,4, -0.1,0.1);
-//    arm9.MakeBox(-0.1,0.1, 4,4.5, -0.1,0.1);
-//    arm10.MakeBox(-0.1,0.1, 4.5,5, -0.1,0.1);
+    arm5.MakeBox(-0.1,0.1, 2,2.5, -0.1,0.1);
+    arm6.MakeBox(-0.1,0.1, 2.5,3, -0.1,0.1);
+    arm7.MakeBox(-0.1,0.1, 3,3.5, -0.1,0.1);
+    arm8.MakeBox(-0.1,0.1, 3.5,4, -0.1,0.1);
+    arm9.MakeBox(-0.1,0.1, 4,4.5, -0.1,0.1);
+    arm10.MakeBox(-0.1,0.1, 4.5,5, -0.1,0.1);
 //    arm11.MakeBox(-0.1,0.1, 5,5.5, -0.1,0.1);
 //    arm12.MakeBox(-0.1,0.1, 5.5,6, -0.1,0.1);
 //    arm13.MakeBox(-0.1,0.1, 6,6.5, -0.1,0.1);
@@ -410,12 +410,12 @@ enum
 //    arm29.MakeBox(-0.1,0.1, 14,14.5, -0.1,0.1);
 //    arm30.MakeBox(-0.1,0.1, 14.5,15, -0.1,0.1);
 
-//    arm5.SetMaterial(VART::Material::PLASTIC_GREEN());
-//    arm6.SetMaterial(VART::Material::PLASTIC_GREEN());
-//    arm7.SetMaterial(VART::Material::PLASTIC_GREEN());
-//    arm8.SetMaterial(VART::Material::PLASTIC_GREEN());
-//    arm9.SetMaterial(VART::Material::PLASTIC_GREEN());
-//    arm10.SetMaterial(VART::Material::PLASTIC_GREEN());
+    arm5.SetMaterial(VART::Material::PLASTIC_GREEN());
+    arm6.SetMaterial(VART::Material::PLASTIC_GREEN());
+    arm7.SetMaterial(VART::Material::PLASTIC_GREEN());
+    arm8.SetMaterial(VART::Material::PLASTIC_GREEN());
+    arm9.SetMaterial(VART::Material::PLASTIC_GREEN());
+    arm10.SetMaterial(VART::Material::PLASTIC_GREEN());
 //    arm11.SetMaterial(VART::Material::PLASTIC_GREEN());
 //    arm12.SetMaterial(VART::Material::PLASTIC_GREEN());
 //    arm13.SetMaterial(VART::Material::PLASTIC_GREEN());
@@ -437,12 +437,12 @@ enum
 //    arm29.SetMaterial(VART::Material::PLASTIC_GREEN());
 //    arm30.SetMaterial(VART::Material::PLASTIC_GREEN());
     
-//    joint45.AddChild(arm5);
-//    joint56.AddChild(arm6);
-//    joint67.AddChild(arm7);
-//    joint78.AddChild(arm8);
-//    joint89.AddChild(arm9);
-//    joint910.AddChild(arm10);
+    joint45.AddChild(arm5);
+    joint56.AddChild(arm6);
+    joint67.AddChild(arm7);
+    joint78.AddChild(arm8);
+    joint89.AddChild(arm9);
+    joint910.AddChild(arm10);
 //    joint1011.AddChild(arm11);
 //    joint1112.AddChild(arm12);
 //    joint1213.AddChild(arm13);
@@ -518,36 +518,6 @@ enum
     glUniformMatrix2fv(uniforms[UNIFORM_COLOR_MATRIX], 1, 0, _color.m);
 
     base.DrawOGL(model);
-//    arm1.DrawOGL(model);
-//    arm2.DrawOGL(model);
-//    arm3.DrawOGL(model);
-//    arm4.DrawOGL(model);
-//    arm5.DrawOGL(model);
-//    arm6.DrawOGL(model);
-//    arm7.DrawOGL(model);
-//    arm8.DrawOGL(model);
-//    arm9.DrawOGL(model);
-//    arm10.DrawOGL(model);
-//    arm11.DrawOGL(model);
-//    arm12.DrawOGL(model);
-//    arm13.DrawOGL(model);
-//    arm14.DrawOGL(model);
-//    arm15.DrawOGL(model);
-//    arm16.DrawOGL(model);
-//    arm17.DrawOGL(model);
-//    arm18.DrawOGL(model);
-//    arm19.DrawOGL(model);
-//    arm20.DrawOGL(model);
-//    arm21.DrawOGL(model);
-//    arm22.DrawOGL(model);
-//    arm23.DrawOGL(model);
-//    arm24.DrawOGL(model);
-//    arm25.DrawOGL(model);
-//    arm26.DrawOGL(model);
-//    arm27.DrawOGL(model);
-//    arm28.DrawOGL(model);
-//    arm29.DrawOGL(model);
-//    arm30.DrawOGL(model);
 }
 
 #pragma mark -  OpenGL ES 2 shader compilation
