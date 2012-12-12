@@ -27,17 +27,17 @@ enum
 };
 
 @interface ViewController () {
-    
+
     CGPoint firstTouch;
     GLuint _program;
-        
+
     GLKMatrix4 _modelViewProjectionMatrix;
     GLKMatrix3 _normalMatrix;
     GLKMatrix2 _color;
     GLKMatrix4 projectionMatrix;
     GLKMatrix4 modelViewMatrix;
     GLKMatrix4 baseModelViewMatrix;
-    
+
     float _rotation;
     float _lastRotation1;
     float _lastRotation2;
@@ -46,13 +46,17 @@ enum
     float model[16];
     float aspect;
     int   selectDof;
+    int   index;
+    int   numberOfObjects;
+
+    VART::Dof* dofPtrVec[30];
 
     GLuint _vertexArray;
     GLuint _vertexBuffer;
 
     VART::MeshObject base;
     VART::Material mat;
-    
+
     //DOFs
     VART::Dof* dofPtr1;
     VART::Dof* dofPtr2;
@@ -185,29 +189,15 @@ enum
     if (abs(currentTouch.x - firstTouch.x) < 10.0f) {
         if (currentTouch.y > self.view.bounds.size.height/2) {
             if (currentTouch.x < self.view.bounds.size.width/2) {
-                if (selectDof == 1) {
-                    dofPtr1->Move(0.05);
-                } else if (selectDof == 2) {
-                    dofPtr2->Move(0.05);
-                } else if (selectDof == 3) {
-                    dofPtr3->Move(0.05);
-                }
+                dofPtrVec[index]->Move(0.05);
             } else {
-                if (selectDof == 1) {
-                    dofPtr1->Move(-0.05);
-                } else if (selectDof == 2) {
-                    dofPtr2->Move(-0.05);
-                } else if (selectDof == 3) {
-                    dofPtr3->Move(-0.05);
-                }
+                dofPtrVec[index]->Move(-0.05);
             }
         } else {
-            if (selectDof == 1) {
-                selectDof = 2;
-            } else if (selectDof == 2) {
-                selectDof = 3;
-            } else if (selectDof == 3) {
-                selectDof = 1;
+            index++;
+            
+            if (index == numberOfObjects) {
+                index = 0;
             }
         }
     }
@@ -226,6 +216,8 @@ enum
     GLKView *view = (GLKView *)self.view;
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
+
+    numberOfObjects = 10;
 
     [self setupGL];
     [self setupScene];
@@ -290,7 +282,7 @@ enum
 -(void) setupScene {
     dofPtr1 = baseJoint.AddDof(Point4D::Y(),Point4D::ORIGIN(), -3.141592654, 3.141592654);
     base.AddChild(baseJoint);
-    
+
     base.MakeBox(-1,1,-0.1,0.1,-1,1);
     mat = VART::Material::DARK_PLASTIC_GRAY();
     base.SetMaterial(mat);
@@ -315,53 +307,124 @@ enum
     arm3.MakeBox(-0.1,0.1, 1,1.5, -0.1,0.1);
     arm3.SetMaterial(VART::Material::PLASTIC_GREEN());
     joint23.AddChild(arm3);
-    
+
     dofPtr1->MoveTo(0.4f);
     dofPtr2->MoveTo(0.4f);
     dofPtr3->MoveTo(0.4f);
 
+    dofPtrVec[0] = dofPtr1;
+    dofPtrVec[1] = dofPtr2;
+    dofPtrVec[2] = dofPtr3;
+
+    index = 0;
+
+    
+    
+    
+    
+    
     //TESTES DE PERFORMANCE
+    if (numberOfObjects >= 4) {
+        dofPtr4 = joint34.AddDof(Point4D::Z(), Point4D(0,1.5,0), -1.570796327, 1.570796327);
+        arm3.AddChild(joint34);
+        
+        arm4.MakeBox(-0.1,0.1, 1.5,2.0, -0.1,0.1);
+        arm4.SetMaterial(VART::Material::PLASTIC_GREEN());
+        joint34.AddChild(arm4);
+        
+        dofPtr4->MoveTo(0.4f);
+        dofPtrVec[3] = dofPtr4;
+    }
     
-    dofPtr4 = joint34.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    arm3.AddChild(joint34);
+    if (numberOfObjects >= 5) {
+        dofPtr5 = joint45.AddDof(Point4D::Z(), Point4D(0,2.0,0), -1.570796327, 1.570796327);
+        arm4.AddChild(joint45);
+        arm5.MakeBox(-0.1,0.1, 2,2.5, -0.1,0.1);
+        arm5.SetMaterial(VART::Material::PLASTIC_GREEN());
+        joint45.AddChild(arm5);
 
-    arm4.MakeBox(-0.1,0.1, 1.5,2.0, -0.1,0.1);
-    arm4.SetMaterial(VART::Material::PLASTIC_GREEN());
-    joint34.AddChild(arm4);
-
-    dofPtr5 = joint45.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr6 = joint56.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr7 = joint67.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr8 = joint78.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr9 = joint89.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-    dofPtr10 = joint910.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-//    dofPtr11 = joint1011.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-//    dofPtr12 = joint1112.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-//    dofPtr13 = joint1213.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-//    dofPtr14 = joint1314.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-//    dofPtr15 = joint1415.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-//    dofPtr16 = joint1516.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-//    dofPtr17 = joint1617.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-//    dofPtr18 = joint1718.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-//    dofPtr19 = joint1819.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-//    dofPtr20 = joint1920.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-//    dofPtr21 = joint2021.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-//    dofPtr22 = joint2122.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-//    dofPtr23 = joint2223.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-//    dofPtr24 = joint2324.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-//    dofPtr25 = joint2425.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-//    dofPtr26 = joint2526.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-//    dofPtr27 = joint2627.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-//    dofPtr28 = joint2728.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-//    dofPtr29 = joint2829.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
-//    dofPtr30 = joint2930.AddDof(Point4D::Z(), Point4D(0,1,0), -1.570796327, 1.570796327);
+        dofPtr5->MoveTo(0.4f);
+        dofPtrVec[4] = dofPtr5;
+    }
     
-    arm4.AddChild(joint45);
-    arm5.AddChild(joint56);
-    arm6.AddChild(joint67);
-    arm7.AddChild(joint78);
-    arm8.AddChild(joint89);
-    arm9.AddChild(joint910);
+    if (numberOfObjects >= 6) {
+        dofPtr6 = joint56.AddDof(Point4D::Z(), Point4D(0,2.5,0), -1.570796327, 1.570796327);        
+        arm5.AddChild(joint56);
+        arm6.MakeBox(-0.1,0.1, 2.5,3, -0.1,0.1);
+        arm6.SetMaterial(VART::Material::PLASTIC_GREEN());
+        joint56.AddChild(arm6);
+
+        dofPtr6->MoveTo(0.4f);
+        dofPtrVec[5] = dofPtr6;
+    }
+    
+    if (numberOfObjects >= 7) {
+        dofPtr7 = joint67.AddDof(Point4D::Z(), Point4D(0,3,0), -1.570796327, 1.570796327);
+        arm6.AddChild(joint67);
+        arm7.MakeBox(-0.1,0.1, 3,3.5, -0.1,0.1);
+        arm7.SetMaterial(VART::Material::PLASTIC_GREEN());
+        joint67.AddChild(arm7);
+
+        dofPtr7->MoveTo(0.4f);
+        dofPtrVec[6] = dofPtr7;
+    }
+    
+    if (numberOfObjects >= 8) {
+        dofPtr8 = joint78.AddDof(Point4D::Z(), Point4D(0,3.5,0), -1.570796327, 1.570796327);
+        arm7.AddChild(joint78);
+        arm8.MakeBox(-0.1,0.1, 3.5,4, -0.1,0.1);
+        arm8.SetMaterial(VART::Material::PLASTIC_GREEN());
+        joint78.AddChild(arm8);
+
+        dofPtr8->MoveTo(0.4f);
+        dofPtrVec[7] = dofPtr8;
+    }
+    
+    
+    if (numberOfObjects >= 9) {
+        dofPtr9 = joint89.AddDof(Point4D::Z(), Point4D(0,4,0), -1.570796327, 1.570796327);
+        arm8.AddChild(joint89);
+        arm9.MakeBox(-0.1,0.1, 4,4.5, -0.1,0.1);
+        arm9.SetMaterial(VART::Material::PLASTIC_GREEN());
+        joint89.AddChild(arm9);
+
+        dofPtr9->MoveTo(0.4f);
+        dofPtrVec[8] = dofPtr9;
+    }
+    
+    
+    if (numberOfObjects >= 10) {
+        dofPtr10 = joint910.AddDof(Point4D::Z(), Point4D(0,4.5,0), -1.570796327, 1.570796327);
+        arm9.AddChild(joint910);
+        arm10.MakeBox(-0.1,0.1, 4.5,5, -0.1,0.1);
+        arm10.SetMaterial(VART::Material::PLASTIC_GREEN());
+        joint910.AddChild(arm10);
+
+        dofPtr10->MoveTo(0.4f);
+        dofPtrVec[9] = dofPtr10;
+    }
+
+//    dofPtr11 = joint1011.AddDof(Point4D::Z(), Point4D(0,5,0), -1.570796327, 1.570796327);
+//    dofPtr12 = joint1112.AddDof(Point4D::Z(), Point4D(0,5.5,0), -1.570796327, 1.570796327);
+//    dofPtr13 = joint1213.AddDof(Point4D::Z(), Point4D(0,6,0), -1.570796327, 1.570796327);
+//    dofPtr14 = joint1314.AddDof(Point4D::Z(), Point4D(0,6.5,0), -1.570796327, 1.570796327);
+//    dofPtr15 = joint1415.AddDof(Point4D::Z(), Point4D(0,7,0), -1.570796327, 1.570796327);
+//    dofPtr16 = joint1516.AddDof(Point4D::Z(), Point4D(0,7.5,0), -1.570796327, 1.570796327);
+//    dofPtr17 = joint1617.AddDof(Point4D::Z(), Point4D(0,8,0), -1.570796327, 1.570796327);
+//    dofPtr18 = joint1718.AddDof(Point4D::Z(), Point4D(0,8.5,0), -1.570796327, 1.570796327);
+//    dofPtr19 = joint1819.AddDof(Point4D::Z(), Point4D(0,9,0), -1.570796327, 1.570796327);
+//    dofPtr20 = joint1920.AddDof(Point4D::Z(), Point4D(0,9.5,0), -1.570796327, 1.570796327);
+//    dofPtr21 = joint2021.AddDof(Point4D::Z(), Point4D(0,10,0), -1.570796327, 1.570796327);
+//    dofPtr22 = joint2122.AddDof(Point4D::Z(), Point4D(0,10.5,0), -1.570796327, 1.570796327);
+//    dofPtr23 = joint2223.AddDof(Point4D::Z(), Point4D(0,11,0), -1.570796327, 1.570796327);
+//    dofPtr24 = joint2324.AddDof(Point4D::Z(), Point4D(0,11.5,0), -1.570796327, 1.570796327);
+//    dofPtr25 = joint2425.AddDof(Point4D::Z(), Point4D(0,12,0), -1.570796327, 1.570796327);
+//    dofPtr26 = joint2526.AddDof(Point4D::Z(), Point4D(0,12.5,0), -1.570796327, 1.570796327);
+//    dofPtr27 = joint2627.AddDof(Point4D::Z(), Point4D(0,13,0), -1.570796327, 1.570796327);
+//    dofPtr28 = joint2728.AddDof(Point4D::Z(), Point4D(0,13.5,0), -1.570796327, 1.570796327);
+//    dofPtr29 = joint2829.AddDof(Point4D::Z(), Point4D(0,14,0), -1.570796327, 1.570796327);
+//    dofPtr30 = joint2930.AddDof(Point4D::Z(), Point4D(0,14.5,0), -1.570796327, 1.570796327);
+    
 //    arm10.AddChild(joint1011);
 //    arm11.AddChild(joint1112);
 //    arm12.AddChild(joint1213);
@@ -383,12 +446,6 @@ enum
 //    arm28.AddChild(joint2829);
 //    arm29.AddChild(joint2930);
     
-    arm5.MakeBox(-0.1,0.1, 2,2.5, -0.1,0.1);
-    arm6.MakeBox(-0.1,0.1, 2.5,3, -0.1,0.1);
-    arm7.MakeBox(-0.1,0.1, 3,3.5, -0.1,0.1);
-    arm8.MakeBox(-0.1,0.1, 3.5,4, -0.1,0.1);
-    arm9.MakeBox(-0.1,0.1, 4,4.5, -0.1,0.1);
-    arm10.MakeBox(-0.1,0.1, 4.5,5, -0.1,0.1);
 //    arm11.MakeBox(-0.1,0.1, 5,5.5, -0.1,0.1);
 //    arm12.MakeBox(-0.1,0.1, 5.5,6, -0.1,0.1);
 //    arm13.MakeBox(-0.1,0.1, 6,6.5, -0.1,0.1);
@@ -410,12 +467,6 @@ enum
 //    arm29.MakeBox(-0.1,0.1, 14,14.5, -0.1,0.1);
 //    arm30.MakeBox(-0.1,0.1, 14.5,15, -0.1,0.1);
 
-    arm5.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm6.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm7.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm8.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm9.SetMaterial(VART::Material::PLASTIC_GREEN());
-    arm10.SetMaterial(VART::Material::PLASTIC_GREEN());
 //    arm11.SetMaterial(VART::Material::PLASTIC_GREEN());
 //    arm12.SetMaterial(VART::Material::PLASTIC_GREEN());
 //    arm13.SetMaterial(VART::Material::PLASTIC_GREEN());
@@ -437,12 +488,6 @@ enum
 //    arm29.SetMaterial(VART::Material::PLASTIC_GREEN());
 //    arm30.SetMaterial(VART::Material::PLASTIC_GREEN());
     
-    joint45.AddChild(arm5);
-    joint56.AddChild(arm6);
-    joint67.AddChild(arm7);
-    joint78.AddChild(arm8);
-    joint89.AddChild(arm9);
-    joint910.AddChild(arm10);
 //    joint1011.AddChild(arm11);
 //    joint1112.AddChild(arm12);
 //    joint1213.AddChild(arm13);
@@ -485,23 +530,6 @@ enum
     _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(modelViewMatrix), NULL);
 
     _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
-
-    model[0]  = _modelViewProjectionMatrix.m00;
-    model[1]  = _modelViewProjectionMatrix.m01;
-    model[2]  = _modelViewProjectionMatrix.m02;
-    model[3]  = _modelViewProjectionMatrix.m03;
-    model[4]  = _modelViewProjectionMatrix.m10;
-    model[5]  = _modelViewProjectionMatrix.m11;
-    model[6]  = _modelViewProjectionMatrix.m12;
-    model[7]  = _modelViewProjectionMatrix.m13;
-    model[8]  = _modelViewProjectionMatrix.m20;
-    model[9]  = _modelViewProjectionMatrix.m21;
-    model[10] = _modelViewProjectionMatrix.m22;
-    model[11] = _modelViewProjectionMatrix.m23;
-    model[12] = _modelViewProjectionMatrix.m30;
-    model[13] = _modelViewProjectionMatrix.m31;
-    model[14] = _modelViewProjectionMatrix.m32;
-    model[15] = _modelViewProjectionMatrix.m33;
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
@@ -517,7 +545,7 @@ enum
     glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix.m);
     glUniformMatrix2fv(uniforms[UNIFORM_COLOR_MATRIX], 1, 0, _color.m);
 
-    base.DrawOGL(model);
+    base.DrawOGL(_modelViewProjectionMatrix.m);
 }
 
 #pragma mark -  OpenGL ES 2 shader compilation

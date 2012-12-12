@@ -25,15 +25,6 @@
     #endif
 #endif
 
-//enum
-//{
-//    UNIFORM_MODELVIEWPROJECTION_MATRIX,
-//    UNIFORM_NORMAL_MATRIX,
-//    UNIFORM_COLOR_MATRIX,
-//    NUM_UNIFORMS
-//};
-//GLint uniforms2[NUM_UNIFORMS];
-
 using namespace std;
 
 VART::Joint::Joint()
@@ -198,6 +189,7 @@ bool VART::Joint::DrawOGL(float *model) const {
     GLKMatrix4 _modelViewProjectionMatrix;
 
     GLKMatrix4 modelViewMatrix;
+    
     modelViewMatrix.m00 = model[0];
     modelViewMatrix.m01 = model[1];
     modelViewMatrix.m02 = model[2];
@@ -261,15 +253,6 @@ bool VART::Joint::DrawOGL(float *model) const {
     model[13] = _modelViewProjectionMatrix.m31;
     model[14] = _modelViewProjectionMatrix.m32;
     model[15] = _modelViewProjectionMatrix.m33;
-
-//    VART::Material mat = GetMaterial(i);
-//    
-//    _color.m00 = mat.GetDiffuseColor().GetR()/255.0f;
-//    _color.m01 = mat.GetDiffuseColor().GetG()/255.0f;
-//    _color.m10 = mat.GetDiffuseColor().GetB()/255.0f;
-//    _color.m11 = mat.GetDiffuseColor().GetA()/255.0f;
-//    
-//    glUniformMatrix2fv(uniforms[UNIFORM_COLOR_MATRIX], 1, 0, _color.m);
 
     for (iter = childList.begin(); iter != childList.end(); ++iter)
         result &= (*iter)->DrawOGL(model);
